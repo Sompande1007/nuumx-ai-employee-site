@@ -3,8 +3,11 @@ import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
 
 // https://astro.build/config
+// SITE and BASE can be set at build time (the GitHub Pages workflow serves the site under /nuumx-ai-employee/).
+// Without them it builds for www.nuumx.ai at the root.
 export default defineConfig({
-  site: 'https://www.nuumx.ai',
+  site: process.env.SITE || 'https://www.nuumx.ai',
+  base: process.env.BASE || '/',
   integrations: [
     icon({
       include: {
