@@ -25,7 +25,7 @@
 .fc-secondary{display:inline-flex;align-items:center;gap:12px;padding:0;border:0;background:none;color:#fff;font:inherit;font-size:15px;cursor:pointer}
 .fc-ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:19px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);transition:background .2s}
 .fc-secondary:hover .fc-ic{background:rgba(255,255,255,.14)}
-.fc-wa{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;color:#AEB3BD;text-decoration:none}
+.fc-wa{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 10px;margin-top:12px;font-size:14px;color:#AEB3BD;text-decoration:none}
 .fc-wa:hover{color:#fff}
 .fc-wa svg{font-size:16px}
 .fc-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin:clamp(28px,5svh,44px) 0 0;padding:0;list-style:none;font-size:13px;color:#8F95A1}

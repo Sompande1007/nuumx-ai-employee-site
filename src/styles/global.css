@@ -3,7 +3,7 @@
    Radius rule: panels 16px, app windows 12px, chips 8px, buttons full pill. */
 :root{
   color-scheme: light;
-  --bg:#EEF0F3; --paper:#F7F8FA; --ink:#0E1013; --ink-2:#3A3F47; --muted:#5B616B; --faint:#A4A9B1;
+  --bg:#EEF0F3; --paper:#F7F8FA; --ink:#0E1013; --ink-2:#3A3F47; --muted:#5B616B; --faint:#858A92; /* 3.04:1 on --bg: the lightest grey that passes for large text */
   --line:rgba(14,16,19,.08); --ok-bg:#E2F1E8; --ok:#0F5C3A; --err:#A1261D; --wa:#128C4A;
   --ui:'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --app:'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -45,3 +45,18 @@ img{max-width:100%}
 .ribbed::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0,rgba(255,255,255,0) 9px,rgba(14,16,19,.028) 17px,rgba(14,16,19,0) 18px);
   -webkit-mask-image:radial-gradient(120% 90% at 50% 45%,transparent 30%,#000 85%);mask-image:radial-gradient(120% 90% at 50% 45%,transparent 30%,#000 85%)}
+
+/* Touch screens: every tappable control gets at least a 44px-tall hit area (Apple HIG), and footer and inline
+   links get comfortable spacing. Desktop layouts are unchanged. */
+@media (pointer:coarse){
+  /* :root raises specificity so these win over each section's own (later-loaded) sizes */
+  :root :is(.btn-link,.hw-call,.ind-call,.fc-wa,.faq-call,.faq-wa,.ts-pp){min-height:44px}
+  :root .ind-pp{width:44px;height:44px}
+  :root .ft-brand a{display:inline-flex;align-items:center;min-height:44px}
+  :root .ft-cols ul{gap:0}
+  :root :is(.ft-cols a,.ft-cols button){display:inline-flex;flex-wrap:wrap;align-items:center;column-gap:.3em;min-height:44px}
+  :root .ft-social a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 6px}
+  /* an inline link inside a sentence: enlarge the hit area without making the line taller */
+  :root .ft-bottom p a{display:inline-block;padding:13px 4px;margin:-13px -4px}
+  :root .nav .brand{min-height:44px}
+}
