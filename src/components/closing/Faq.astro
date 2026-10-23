@@ -1,0 +1,35 @@
+---
+// FAQ: two columns. The left one holds the headline and a small "Still have a question?" card (it stays in view on
+// desktop); the right one is the list of questions. Each question is a native <details>, so it works without
+// JavaScript; the script only smooths the open and close.
+import { Icon } from 'astro-icon/components';
+import '../../styles/closing.css';
+import { FAQ, FAQ_HEAD as H } from '../../data/faq';
+import { LEADS } from '../../config/site';
+const wa = String(LEADS.whatsapp || '').replace(/\D/g, '');
+const waHref = wa ? `https://wa.me/${wa}?text=${encodeURIComponent('Hi, I have a question about the nuumx AI Employee.')}` : '';
+---
+<section class="faq ribbed" id="faq" aria-labelledby="faqTitle">
+  <div class="faq-in">
+    <div class="faq-side">
+      <h2 id="faqTitle">{H.title}<br /><span>{H.titleSoft}</span></h2>
+      <p class="faq-lede">{H.lede}</p>
+      <div class="faq-ask">
+        <p class="faq-ask-t">{H.askTitle}</p>
+        <p class="faq-ask-b">{H.askBody}</p>
+        <div class="faq-ask-a">
+          <button class="faq-call" type="button" data-open="call" data-track="faq_call"><Icon name="material-symbols:call-outline" />Get a call from Riya</button>
+          {waHref && <a class="faq-wa" href={waHref} target="_blank" rel="noopener" data-track="faq_whatsapp"><Icon name="material-symbols:chat-outline" />WhatsApp us</a>}
+        </div>
+      </div>
+    </div>
+    <div class="faq-list">
+      {FAQ.map((f, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary><span>{f.q}</span><i class="faq-pm" aria-hidden="true"></i></summary>
+          <div class="faq-a"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,88 @@
+/* Closing sections: the final call to action (fc-), the FAQ (faq-) and the footer (ft-). */
+
+/* ---------- final call to action: one dark, frosted panel ---------- */
+.fc{background:var(--bg);padding:clamp(24px,5svh,56px) clamp(16px,4vw,48px)}
+.fc-in{max-width:1280px;margin:0 auto}
+.fc-panel{position:relative;isolation:isolate;overflow:hidden;border-radius:32px;padding:clamp(56px,10svh,104px) clamp(24px,6vw,96px);text-align:center;color:#fff;
+  background:radial-gradient(90% 70% at 50% 0%,#1B2030 0%,#0E1013 62%);box-shadow:0 50px 100px -50px rgba(14,16,19,.65),inset 0 1px 0 rgba(255,255,255,.08)}
+/* the site's ribbed texture, in light, faded toward the middle */
+.fc-panel::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 9px,rgba(0,0,0,.18) 17px,rgba(0,0,0,0) 18px);
+  -webkit-mask-image:radial-gradient(110% 90% at 50% 40%,transparent 25%,#000 85%);mask-image:radial-gradient(110% 90% at 50% 40%,transparent 25%,#000 85%)}
+/* a soft mist-blue light from below */
+.fc-panel::after{content:"";position:absolute;left:50%;bottom:-40%;width:80%;height:80%;transform:translateX(-50%);z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(90,106,158,.35),rgba(90,106,158,0));pointer-events:none}
+.fc-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);font-size:13px;color:#C9CEDB}
+.fc-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#8C9AC8}
+.fc h2{margin-top:22px;font-weight:500;font-size:clamp(32px,min(4.2vw,7.4svh),58px);line-height:1.04;letter-spacing:-.048em;text-wrap:balance}
+.fc h2 span{color:#8F95A1}
+.fc-lede{max-width:46ch;margin:20px auto 0;font-size:clamp(15px,1.2vw,17px);line-height:1.55;color:#AEB3BD;text-wrap:pretty}
+.fc-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 22px;margin-top:clamp(28px,5svh,40px)}
+.fc-primary{display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 30px;border:0;border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:16px;font-weight:500;cursor:pointer;
+  box-shadow:0 0 0 6px rgba(255,255,255,.08),0 18px 40px -14px rgba(140,154,200,.6);transition:transform .2s var(--ease-out),box-shadow .3s}
+.fc-primary .fc-arrow{font-size:19px;transition:transform .25s var(--ease-out)}
+.fc-primary:hover{transform:translateY(-1px);box-shadow:0 0 0 8px rgba(255,255,255,.1),0 22px 46px -14px rgba(140,154,200,.7)}
+.fc-primary:hover .fc-arrow{transform:translateX(3px)}
+.fc-secondary{display:inline-flex;align-items:center;gap:12px;padding:0;border:0;background:none;color:#fff;font:inherit;font-size:15px;cursor:pointer}
+.fc-ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:19px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);transition:background .2s}
+.fc-secondary:hover .fc-ic{background:rgba(255,255,255,.14)}
+.fc-wa{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:14px;color:#AEB3BD;text-decoration:none}
+.fc-wa:hover{color:#fff}
+.fc-wa svg{font-size:16px}
+.fc-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin:clamp(28px,5svh,44px) 0 0;padding:0;list-style:none;font-size:13px;color:#8F95A1}
+.fc-facts li{display:inline-flex;align-items:center;gap:8px}
+.fc-facts li::before{content:"";width:4px;height:4px;border-radius:50%;background:#5A6A9E}
+.fc-primary:focus-visible,.fc-secondary:focus-visible,.fc-wa:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:999px}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--bg);scroll-margin-top:72px}
+.faq-in{max-width:1280px;margin:0 auto;padding:clamp(80px,11svh,136px) clamp(16px,4vw,48px) clamp(72px,10svh,120px);display:grid;gap:40px 80px}
+@media (min-width:1024px){.faq-in{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}.faq-side{position:sticky;top:112px}}
+.faq h2{font-weight:500;font-size:clamp(34px,min(4.4vw,7svh),60px);line-height:1.02;letter-spacing:-.048em}
+.faq h2 span{color:var(--faint)}
+.faq-lede{max-width:34ch;margin-top:16px;font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--muted)}
+.faq-ask{margin-top:clamp(28px,5svh,48px);padding:22px;border-radius:22px;max-width:380px;
+  background:linear-gradient(150deg,rgba(255,255,255,.95),rgba(255,255,255,.75));border:1px solid #fff;box-shadow:0 1px 2px rgba(30,40,58,.05),0 24px 50px -30px rgba(30,40,58,.35)}
+.faq-ask-t{font-size:16px;font-weight:500}
+.faq-ask-b{margin-top:4px;font-size:14px;line-height:1.5;color:var(--muted)}
+.faq-ask-a{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.faq-call,.faq-wa{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;font:inherit;font-size:14px;cursor:pointer;text-decoration:none}
+.faq-call{border:0;background:var(--ink);color:#fff}
+.faq-wa{border:1px solid rgba(14,16,19,.14);background:#fff;color:var(--ink)}
+.faq-call svg,.faq-wa svg{font-size:17px}
+.faq-wa svg{color:var(--wa)}
+.faq-list{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(20px,3svh,26px) 0;list-style:none;cursor:pointer;font-size:clamp(17px,1.4vw,20px);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover span{color:var(--ink-2)}
+.faq-item summary:focus-visible{outline:2px solid #5A6A9E;outline-offset:4px;border-radius:8px}
+.faq-pm{flex:none;position:relative;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid rgba(14,16,19,.1);transition:background .3s,border-color .3s}
+.faq-pm::before,.faq-pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;border-radius:2px;background:var(--ink);transition:transform .35s var(--ease-out),background .3s}
+.faq-pm::after{transform:rotate(90deg)}
+.faq-item[open] .faq-pm{background:var(--ink);border-color:var(--ink)}
+.faq-item[open] .faq-pm::before,.faq-item[open] .faq-pm::after{background:#fff}
+.faq-item[open] .faq-pm::after{transform:rotate(0)}
+.faq-a{overflow:hidden}
+.faq-a p{max-width:62ch;padding:0 56px clamp(22px,3svh,28px) 0;font-size:15.5px;line-height:1.65;color:var(--ink-2);text-wrap:pretty}
+
+/* ---------- footer ---------- */
+.ft{position:relative;overflow:hidden;background:#E6E9ED;border-top:1px solid rgba(14,16,19,.06)}
+.ft-in{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:clamp(40px,6svh,56px) clamp(16px,4vw,48px) 28px}
+.ft-top{display:grid;gap:40px 64px}
+@media (min-width:1024px){.ft-top{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}}
+.ft-brand img{display:block;height:32px;width:auto}
+.ft-brand p{max-width:32ch;margin-top:16px;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.ft-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px}
+@media (min-width:768px){.ft-cols{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ft-h{font-size:13px;font-weight:500;color:var(--ink)}
+.ft-cols ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.ft-cols a,.ft-cols button{padding:0;border:0;background:none;font:inherit;font-size:14px;color:var(--muted);text-decoration:none;text-align:left;cursor:pointer;transition:color .2s}
+.ft-cols a:hover,.ft-cols button:hover{color:var(--ink)}
+.ft-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-top:clamp(28px,4svh,40px);padding-top:18px;border-top:1px solid rgba(14,16,19,.08);font-size:13px;color:var(--muted)}
+.ft-bottom a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.ft-bottom a:hover{color:var(--ink)}
+.ft-social{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:0;list-style:none}
+.ft-social a{text-decoration:none}
+.ft a:focus-visible,.ft button:focus-visible{outline:2px solid #5A6A9E;outline-offset:3px;border-radius:4px}
+.ft-nowrap{white-space:nowrap}
+@media (max-width:767px){.ft{padding-bottom:84px}} /* room for the phone's sticky Book / WhatsApp bar */

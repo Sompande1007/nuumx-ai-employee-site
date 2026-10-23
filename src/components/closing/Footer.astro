@@ -1,0 +1,42 @@
+---
+// Footer: brand and tagline, page and nuumx.ai links, how to reach us, then the legal line and social links.
+import { Image } from 'astro:assets';
+import '../../styles/closing.css';
+import wordmark from '../../assets/nuumx-wordmark.png';
+import { FOOTER as F } from '../../data/footer';
+import { LEADS } from '../../config/site';
+const wa = String(LEADS.whatsapp || '').replace(/\D/g, '');
+const waHref = wa ? `https://wa.me/${wa}` : '';
+const waLabel = wa ? `+${wa.slice(0, 2)} ${wa.slice(2, 7)} ${wa.slice(7)}` : '';
+---
+<footer class="ft" aria-label="Site footer">
+  <div class="ft-in">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <a href="#top" aria-label="nuumx, back to top"><Image src={wordmark} alt="nuumx" width={118} height={32} densities={[1, 2, 3]} /></a>
+        <p>{F.tagline}</p>
+      </div>
+      <nav class="ft-cols" aria-label="Footer">
+        {F.columns.map((c) => (
+          <div>
+            <p class="ft-h">{c.title}</p>
+            <ul>{c.links.map((l) => <li><a href={l.href} {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}</a></li>)}</ul>
+          </div>
+        ))}
+        <div>
+          <p class="ft-h">Talk to us</p>
+          <ul>
+            <li><button type="button" data-open="demo" data-track="footer_demo">Book a free demo</button></li>
+            <li><button type="button" data-open="call" data-track="footer_call">Get a call from Riya</button></li>
+            {waHref && <li><a href={waHref} target="_blank" rel="noopener" data-track="footer_whatsapp">WhatsApp <span class="ft-nowrap">{waLabel}</span></a></li>}
+            <li><a href={LEADS.bookingUrl} target="_blank" rel="noopener">Pick a time</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="ft-bottom">
+      <p>{F.legal} <span>{F.note}</span> <a href={F.policies.href} target="_blank" rel="noopener">{F.policies.label}</a></p>
+      <ul class="ft-social" aria-label="nuumx on social media">{F.social.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.label}</a></li>)}</ul>
+    </div>
+  </div>
+</footer>

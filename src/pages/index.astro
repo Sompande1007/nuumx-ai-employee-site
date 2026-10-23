@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/hero/Hero.astro';
+import WhatItReplaces from '../components/replaces/WhatItReplaces.astro';
+import Frees from '../components/frees/Frees.astro';
+import HowItWorks from '../components/how/HowItWorks.astro';
+import HowItHelps from '../components/helps/HowItHelps.astro';
+import Testimonials from '../components/testimonials/Testimonials.astro';
+import Industries from '../components/industries/Industries.astro';
+import FinalCta from '../components/closing/FinalCta.astro';
+import Faq from '../components/closing/Faq.astro';
+import Footer from '../components/closing/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import LeadDialog from '../components/LeadDialog.astro';
+---
+<Base>
+  <Header />
+  <main id="top">
+    <Hero />
+    <WhatItReplaces />
+    <Frees />
+    <HowItWorks />
+    <HowItHelps />
+    <Testimonials />
+    <Industries />
+    <FinalCta />
+    <Faq />
+  </main>
+  <Footer />
+  <MobileBar />
+  <LeadDialog />
+</Base>
+
+<script>
+  import { initClickTracking } from '../scripts/analytics';
+  initClickTracking();
+</script>

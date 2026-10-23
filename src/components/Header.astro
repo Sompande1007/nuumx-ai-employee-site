@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import wordmark from '../assets/nuumx-wordmark.png';
+import { SITE } from '../config/site';
+---
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="nuumx home">
+    <Image src={wordmark} alt="nuumx" width={103} height={28} densities={[1, 2, 3]} loading="eager" />
+  </a>
+  <nav class="links glass" aria-label="Page sections">
+    {SITE.nav.map((item) => <a href={item.href} data-track={item.track}>{item.label}</a>)}
+  </nav>
+  <button class="nav-cta" type="button" data-open="demo" data-track="nav_demo">Book a free demo</button>
+</header>
+
+<style>
+  .nav{position:fixed;top:0;left:0;right:0;z-index:40;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:calc(12px + env(safe-area-inset-top,0px)) clamp(16px,4vw,48px) 12px;transition:background .35s ease,box-shadow .35s ease}
+  /* Dense enough that big headlines scrolling underneath never read through the glass */
+  .nav:global(.scrolled){background:rgba(244,245,247,.94);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);box-shadow:0 1px 0 rgba(14,16,19,.06)}
+  .brand{display:inline-flex;align-items:center;justify-self:start}
+  .brand img{display:block;height:28px;width:auto}
+  .links{display:flex;gap:2px;padding:4px;border-radius:999px}
+  .links a{padding:7px 16px;border-radius:999px;color:var(--muted);font-size:13.5px;transition:color .2s,background .2s}
+  .links a:hover{color:var(--ink);background:rgba(255,255,255,.7)}
+  .links a[aria-current="true"]{color:var(--ink);background:#fff;box-shadow:0 2px 8px -4px rgba(30,40,58,.3)}
+  .nav-cta{justify-self:end;display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font-weight:500;font-size:13.5px;white-space:nowrap;transition:transform .2s var(--ease-out)}
+  .nav-cta:hover{transform:translateY(-1px)}
+  .nav-cta:active{transform:translateY(1px)}
+  @media (max-width:860px){ .links{display:none} .nav{grid-template-columns:1fr auto} }
+  @media (max-width:767px){ .nav-cta{display:none} }
+</style>
+
+<script>
+  const nav = document.getElementById('nav');
+  // Frost the header once the page moves; IntersectionObserver avoids a scroll listener.
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:24px;left:0;width:1px;height:1px;pointer-events:none';
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([e]) => nav?.classList.toggle('scrolled', !e.isIntersecting)).observe(sentinel);
+
+  // Highlight the menu link for the section in the middle of the screen.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.links a[href^="#"]'));
+  const targets = links.map((a) => document.getElementById(a.getAttribute('href')!.slice(1))).filter((t): t is HTMLElement => !!t);
+  const visible = new Set<string>();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+    const current = targets.find((t) => visible.has(t.id))?.id;
+    links.forEach((a) => (a.getAttribute('href') === `#${current}` ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  targets.forEach((t) => io.observe(t));
+</script>

@@ -1,0 +1,66 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+<div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" data-lenis-prevent hidden>
+  <div class="panel">
+    <button class="x" type="button" id="dlgClose" aria-label="Close"><Icon name="material-symbols:close" class="icon" /></button>
+    <form id="leadForm" novalidate>
+      <h2 id="dlgTitle">Book your free demo</h2>
+      <p class="lede" id="dlgLede">30 minutes on your own use case. No obligation.</p>
+      <div class="fields">
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Priya Sharma" />
+          <span class="err" id="e-name" hidden>Enter your name so we know who to ask for.</span>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone or WhatsApp</label>
+          <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210" />
+          <span class="err" id="e-phone" hidden>Enter a 10-digit mobile number, with country code if outside India.</span>
+        </div>
+        <div class="field" id="companyField">
+          <label for="f-company">Company <small>(optional)</small></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" placeholder="Your business name" />
+        </div>
+        <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+        <button class="btn-primary submit" id="submitBtn" type="submit">Book my demo</button>
+      </div>
+      <p class="fine" id="dlgFine">We only use your number to arrange your demo.</p>
+    </form>
+    <div class="done-state" id="doneState" hidden aria-live="polite">
+      <h2 id="doneTitle">Request received</h2>
+      <p class="lede" id="doneText"></p>
+      <div class="acts" id="doneActs"></div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .dlg{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(14,16,19,.32);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .dlg .panel{position:relative;width:min(440px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:28px;border-radius:16px;background:linear-gradient(140deg,rgba(255,255,255,.95),rgba(255,255,255,.88));-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid #fff;box-shadow:0 40px 90px -30px rgba(14,16,19,.45);animation:dlg-rise .35s var(--ease-out)}
+  @keyframes dlg-rise{from{opacity:0;transform:translateY(12px) scale(.98)}}
+  .dlg .x{position:absolute;right:14px;top:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(14,16,19,.05);display:grid;place-items:center;font-size:18px}
+  .dlg .x:hover{background:rgba(14,16,19,.09)}
+  .dlg h2{font-weight:600;font-size:22px;letter-spacing:-.025em;padding-right:40px}
+  .dlg .lede{color:var(--muted);font-size:14.5px;margin-top:6px}
+  .dlg .fields{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+  .dlg .field{display:flex;flex-direction:column;gap:6px}
+  .dlg .field label{font-size:13px;font-weight:500}
+  .dlg .field label small{font-weight:400;color:var(--muted)}
+  .dlg .field input{height:46px;padding:0 14px;border-radius:12px;border:1px solid rgba(14,16,19,.16);background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+  .dlg .field input::placeholder{color:#8A9099}
+  .dlg .field input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(14,16,19,.08)}
+  .dlg .field input[aria-invalid="true"]{border-color:var(--err)}
+  .dlg .err{font-size:12.5px;color:var(--err)}
+  .dlg .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .dlg .submit{margin-top:6px;width:100%}
+  .dlg .fine{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center}
+  .dlg .done-state{display:flex;flex-direction:column;gap:12px}
+  .dlg .acts{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .dlg .num{font-variant-numeric:tabular-nums;user-select:all}
+</style>
+
+<script>
+  import { initLeadDialog } from '../scripts/leads';
+  initLeadDialog();
+</script>

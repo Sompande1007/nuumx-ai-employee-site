@@ -1,0 +1,80 @@
+---
+// How it helps your business: the four gains as a large-type tab list on the left; the active gain's line and three
+// points sit on one frosted-glass panel over the white ribs (the same material as "With Riya"). Hovering a gain (with a
+// short delay), clicking it or using the arrow keys switches it; one ink bar and arrow glide to the active row.
+// On phones the same content is an accordion. Copy lives in src/data/how-it-helps.ts.
+import { Icon } from 'astro-icon/components';
+import { Picture } from 'astro:assets';
+import '../../styles/helps.css';
+import ribs from '../../assets/how-ribs.webp';
+import { HELPS as H } from '../../data/how-it-helps';
+
+const showRoiLink = false; // turn on once the ROI section (#roi) exists
+---
+<section class="hb ribbed" id="helps" aria-labelledby="hbTitle">
+  <div class="hb-in">
+    <header class="hb-head">
+      <h2 id="hbTitle">{H.title}<br /><span>{H.titleSoft}</span></h2>
+      <p>{H.lede}</p>
+    </header>
+
+    <div class="hb-body">
+      <div class="hb-list" role="tablist" aria-label="What your business gains" aria-orientation="vertical">
+        {H.gains.map((g, i) => (
+          <button class="hb-tab" type="button" role="tab" id={`hbT${i}`} aria-controls={`hbP${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+            <small>0{i + 1}</small>{g.short}
+          </button>
+        ))}
+        <span class="hb-ind" aria-hidden="true"><i></i><b><Icon name="material-symbols:arrow-forward" /></b></span>
+      </div>
+
+      <div class="hb-side">
+        <div class="hb-glass">
+          <div class="hb-ribs" aria-hidden="true">
+            <Picture src={ribs} alt="" formats={['avif']} fallbackFormat="webp" widths={[640, 1040]} sizes="(min-width: 768px) 600px, 100vw" loading="lazy" class="hb-photo" />
+          </div>
+          <div class="hb-panel">
+            {H.gains.map((g, i) => (
+              <div class="hb-pane" role="tabpanel" id={`hbP${i}`} aria-labelledby={`hbT${i}`} hidden={i !== 0}>
+                <span class="hb-tag"><i>0{i + 1}</i>{g.title}</span>
+                <p class="hb-line">{g.line}</p>
+                <ul class="hb-pts">{g.points.map(([b, s], k) => <li><em aria-hidden="true">{k + 1}</em><b>{b}</b> <span>{s}</span></li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* "Calculate your ROI" links to the ROI section; hidden until that section is built (set showRoiLink below). */}
+        {showRoiLink && <a class="hb-cta" href="#roi" data-track="helps_roi"><i><Icon name="material-symbols:arrow-forward" /></i>{H.cta}</a>}
+      </div>
+    </div>
+
+    <div class="hb-acc">
+      {H.gains.map((g, i) => (
+        <>
+          <h3>
+            <button class="hb-q" type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`hbA${i}`}>
+              <small>0{i + 1}</small>{g.short}<span class="hb-pm" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class={`hb-a${i === 0 ? ' is-open' : ''}`} id={`hbA${i}`} role="region" aria-label={g.title}>
+            <div class="hb-glass">
+              <div class="hb-ribs" aria-hidden="true">
+                <Picture src={ribs} alt="" formats={['avif']} fallbackFormat="webp" widths={[640, 1040]} sizes="(min-width: 768px) 600px, 100vw" loading="lazy" class="hb-photo" />
+              </div>
+              <div class="hb-pane">
+                <p class="hb-line">{g.line}</p>
+                <ul class="hb-pts">{g.points.map(([b, s], k) => <li><em aria-hidden="true">{k + 1}</em><b>{b}</b> <span>{s}</span></li>)}</ul>
+              </div>
+            </div>
+          </div>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startHowItHelps } from '../../scripts/how-it-helps';
+  startHowItHelps();
+</script>

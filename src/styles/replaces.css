@@ -1,0 +1,54 @@
+/* What it replaces: a spec comparison table. Every class is prefixed wr-.
+   The With Riya column sits on one frosted strip, drawn by .wr-spec::before behind the third column
+   (columns are 26% / 37% / 37% wide, so the strip starts at 63%). */
+
+.wr{position:relative;background:var(--bg);scroll-margin-top:72px}
+.wr-in{max-width:1280px;margin:0 auto;padding:clamp(88px,12svh,140px) clamp(16px,4vw,48px) clamp(72px,10svh,120px)}
+.wr-head{display:grid;gap:14px 64px}
+.wr-head h2{font-weight:500;font-size:clamp(34px,min(4.4vw,7svh),60px);line-height:1.02;letter-spacing:-.048em}
+.wr-head h2 span{color:var(--faint)}
+.wr-head p{max-width:40ch;font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--muted)}
+@media (min-width:1024px){
+  .wr-head{grid-template-columns:minmax(0,1fr) minmax(280px,360px);align-items:end}
+  .wr-head p{margin-bottom:4px}
+}
+.wr-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wr-spec{position:relative;isolation:isolate;width:100%;margin-top:clamp(28px,5svh,64px);border-collapse:collapse;table-layout:fixed;text-align:left}
+.wr-spec::before{content:"";position:absolute;top:0;bottom:0;left:63%;right:0;z-index:-1;border-radius:24px;
+  background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.66));
+  box-shadow:0 1px 2px rgba(30,40,58,.05),0 30px 70px -40px rgba(30,40,58,.38),inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.8)}
+.wr-spec::after{content:"";position:absolute;top:0;left:calc(63% + 24px);right:24px;height:2px;background:linear-gradient(90deg,rgba(90,106,158,0),rgba(90,106,158,.6),rgba(90,106,158,0))}
+.wr-spec thead td,.wr-spec thead th{width:37%;padding:18px 0 14px;font-weight:400}
+.wr-spec thead td{width:26%}
+.wr-spec thead .wr-r{padding-left:clamp(20px,2.4vw,32px)}
+.wr-pill{display:inline-flex;padding:5px 12px;border-radius:999px;font-weight:500;font-size:12.5px}
+.wr-spec thead .wr-t .wr-pill{background:rgba(255,255,255,.6);border:1px solid var(--line);color:var(--muted)}
+.wr-spec thead .wr-r .wr-pill{background:var(--ink);color:#fff}
+.wr-spec tbody th,.wr-spec tbody td{height:clamp(62px,8.6svh,92px);padding:0;border-top:1px solid var(--line);vertical-align:middle}
+.wr-spec tbody th{font-weight:400;font-size:15px;color:var(--ink-2)}
+.wr-spec tbody .wr-r{padding-left:clamp(20px,2.4vw,32px);border-top-color:rgba(14,16,19,.07)}
+.wr-spec tbody tr:last-child th,.wr-spec tbody tr:last-child td{padding-bottom:4px}
+.wr-spec b{font-weight:500;font-size:clamp(28px,2.8vw,40px);letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;margin-right:10px}
+.wr-spec td span{font-size:14.5px;line-height:1.35}
+.wr-spec .wr-t b{color:var(--faint)}
+.wr-spec .wr-t span{color:var(--muted)}
+.wr-spec .wr-r b{color:var(--ink)}
+.wr-spec .wr-r span{color:var(--ink-2)}
+.wr-spec tbody tr:last-child td.wr-r{height:calc(clamp(62px,8.6svh,92px) + 14px)}
+
+@media (max-width:767px){
+  .wr-spec,.wr-spec thead,.wr-spec tbody,.wr-spec tr{display:block}
+  .wr-spec::before{left:50%}
+  .wr-spec::after{left:calc(50% + 16px);right:16px}
+  .wr-spec tr{display:grid;grid-template-columns:1fr 1fr}
+  .wr-spec thead td{display:none}
+  .wr-spec thead th{display:block;width:auto}
+  .wr-spec thead .wr-r{padding-left:16px}
+  .wr-spec tbody th{grid-column:1/-1;display:block;height:auto;padding:14px 0 0;font-size:13px;color:var(--muted)}
+  .wr-spec tbody td{display:flex;flex-direction:column;gap:4px;height:auto;padding:6px 0 16px;border-top:0}
+  .wr-spec tbody .wr-r{padding-left:16px}
+  .wr-spec tbody tr:last-child td.wr-r{height:auto}
+  .wr-spec b{font-size:26px;margin:0}
+  .wr-spec td span{font-size:13px}
+}

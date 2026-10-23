@@ -1,0 +1,20 @@
+---
+import { Icon } from 'astro-icon/components';
+import { LEADS } from '../config/site';
+const wa = String(LEADS.whatsapp || '').replace(/\D/g, '');
+const href = wa ? `https://wa.me/${wa}?text=${encodeURIComponent('Hi, I would like to know more about the nuumx AI Employee.')}` : '';
+---
+<div class="mbar" role="region" aria-label="Quick actions">
+  <button class="btn-primary" type="button" data-open="demo" data-track="mbar_demo">Book a free demo</button>
+  {href && <a class="wa" href={href} target="_blank" rel="noopener" data-track="mbar_whatsapp"><Icon name="material-symbols:chat-outline" class="icon" />WhatsApp</a>}
+</div>
+
+<style>
+  .mbar{display:none}
+  @media (max-width:767px){
+    .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(244,245,247,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid rgba(14,16,19,.06)}
+    .mbar .btn-primary{flex:1;min-height:48px}
+    .wa{display:inline-flex;align-items:center;gap:6px;padding:0 16px;min-height:48px;border-radius:999px;border:1px solid rgba(14,16,19,.16);background:#fff;font-size:14px;font-weight:500}
+    .wa :global(.icon){font-size:18px;color:var(--wa)}
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+// One phone screen per step of "How it works": what Priya sees (chat, call, WhatsApp, email), then Rahul's lock screen.
+// Decorative: the same facts are in the step text, so callers mark the phone aria-hidden.
+import { Icon } from 'astro-icon/components';
+import { Picture } from 'astro:assets';
+import ribs from '../../assets/how-ribs.webp';
+
+interface Props { step: number }
+const { step } = Astro.props;
+const bar = (time: string, light = false) => ({ time, light });
+const sb = [bar('11:40'), bar('11:42', true), bar('11:47', true), bar('11:48'), bar('9:00')][step];
+---
+{step === 0 && (
+  <div class="hw-sc hw-sc--chat">
+    <div class="hw-sb"><span>{sb.time}</span><span class="hw-bat"><i></i></span></div>
+    <p class="hw-url">interiorstudio.in</p>
+    <p class="hw-site">Interiors that<br />feel like you.</p>
+    <div class="hw-sheet">
+      <div class="hw-sh"><span class="hw-av hw-av--ink">R</span><span><b>Riya</b><small>Interior Studio · online</small></span></div>
+      <div class="hw-msgs">
+        <p class="hw-mb hw-mb--me">What would a 3BHK cost?</p>
+        <p class="hw-mb hw-mb--them">Usually ₹6-9 lakh in Pune. Shall I call you in 2 minutes to plan it?</p>
+        <p class="hw-mb hw-mb--me">Yes please. 98765 43210</p>
+      </div>
+      <p class="hw-inp">Message</p>
+    </div>
+  </div>
+)}
+{step === 1 && (
+  <div class="hw-sc hw-sc--call">
+    <div class="hw-sb hw-sb--light"><span>{sb.time}</span><span class="hw-bat"><i></i></span></div>
+    <div class="hw-who"><span class="hw-av">IS</span><b>Interior Studio</b><small>Riya · 00:42</small></div>
+    <div class="hw-cc"><small>Live captions</small>"Hi Priya, it's Riya from Interior Studio. You asked about a 3BHK in Pune. Shall we plan it together?"</div>
+    <div class="hw-keys">
+      <span><Icon name="material-symbols:mic-off-outline" /></span>
+      <span><Icon name="material-symbols:volume-up-outline" /></span>
+      <span class="hw-end"><Icon name="material-symbols:call-end" /></span>
+    </div>
+  </div>
+)}
+{step === 2 && (
+  <div class="hw-sc hw-sc--wa">
+    <div class="hw-wa-top">
+      <div class="hw-sb hw-sb--light"><span>{sb.time}</span><span class="hw-bat"><i></i></span></div>
+      <div class="hw-wa-hd"><span class="hw-av">IS</span><span><b>Interior Studio</b><small>Business account</small></span></div>
+    </div>
+    <div class="hw-wa-bd">
+      <div class="hw-wm hw-wm--in hw-doc"><span class="hw-pdf">PDF</span><span><b>Studio brochure.pdf</b><small>4 pages · 2.1 MB</small></span></div>
+      <p class="hw-wm hw-wm--in">Here are three slots for your free site visit. Which suits you?</p>
+      <div class="hw-slots"><span>Sat 11:00 am</span><span>Sat 4:00 pm</span><span>Sun 11:00 am</span></div>
+      <p class="hw-wm hw-wm--out">Sat 11:00 works.<small>11:47 pm</small></p>
+    </div>
+    <p class="hw-inp hw-inp--wa">Message</p>
+  </div>
+)}
+{step === 3 && (
+  <div class="hw-sc hw-sc--mail">
+    <div class="hw-sb"><span>{sb.time}</span><span class="hw-bat"><i></i></span></div>
+    <p class="hw-back">Inbox</p>
+    <p class="hw-subj">Your site visit, Saturday 11:00 am</p>
+    <div class="hw-from"><span class="hw-av hw-av--ink">IS</span><span><b>Interior Studio</b><small>to me · 11:48 pm</small></span></div>
+    <p class="hw-mail-p">Hi Priya, your indicative estimate is attached. Rahul from our design team will meet you at your flat.</p>
+    <span class="hw-att"><i>PDF</i>Estimate.pdf</span>
+    <div class="hw-inv"><span class="hw-day"><b>OCT</b>26</span><span><b>Site visit with Rahul</b><small>Sat, 11:00 am · Your flat, Pune</small></span></div>
+    <div class="hw-rsvp"><span class="is-yes">Yes</span><span>Maybe</span><span>No</span></div>
+  </div>
+)}
+{step === 4 && (
+  <div class="hw-sc hw-sc--lock">
+    <Picture src={ribs} alt="" formats={['avif']} fallbackFormat="webp" widths={[360, 720]} sizes="332px" loading="lazy" class="hw-wall" />
+    <div class="hw-sb"><span>{sb.time}</span><span class="hw-bat"><i></i></span></div>
+    <p class="hw-date">Thursday, 24 October</p>
+    <p class="hw-big">9:00</p>
+    <div class="hw-note">
+      <p class="hw-note-h"><span class="hw-app">n</span>nuumx<small>now</small></p>
+      <b>Visit booked: Priya Sharma</b>
+      <p>Sat 11:00 am · 3BHK interiors, Pune · ₹6-8 lakh. Full history inside.</p>
+    </div>
+  </div>
+)}

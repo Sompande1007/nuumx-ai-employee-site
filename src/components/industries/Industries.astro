@@ -1,0 +1,39 @@
+---
+// Industries: one sentence that plays like a looping film. "Riya turns every [enquiry] into [outcome]." The two
+// phrases sit on frosted tiles; Riya deletes each phrase and types the next at a human rhythm, industry after industry,
+// ending on "every enquiry into a customer". A small button in the corner pauses it.
+// Screen readers get one complete summary instead of the moving words. Copy lives in src/data/industries.ts.
+import { Icon } from 'astro-icon/components';
+import '../../styles/industries.css';
+import { INDUSTRIES as D } from '../../data/industries';
+const first = D.beats[0];
+---
+<section class="ind ribbed" id="industries" aria-labelledby="indTitle">
+  <div class="ind-in">
+    <span class="ind-eyebrow">{D.eyebrow}</span>
+    <h2 class="ind-sent" id="indTitle">
+      <span class="ind-sr">{D.summary}</span>
+      <span aria-hidden="true">
+        <span class="ind-l">{D.lead}</span>
+        <span class="ind-l"><span class="ind-slot" id="indA"><span class="ind-ph">{first.enquiry}</span></span></span>
+        <span class="ind-l"><span class="ind-into">{D.joiner} </span><span class="ind-slot" id="indB"><span class="ind-ph">{first.outcome}</span></span>.</span>
+      </span>
+    </h2>
+    <p class="ind-sup">{D.supporting}</p>
+    <div class="ind-cta">
+      <button class="ind-call" type="button" data-open="call" data-track="industries_call">
+        <span class="ind-ic"><Icon name="material-symbols:call-outline" /></span><span>{D.call}<span class="ind-long">{D.callLong}</span></span>
+      </button>
+      <span class="ind-small">{D.small}</span>
+    </div>
+  </div>
+  <!-- moving content must be pausable (WCAG 2.2.2), so a small pause button stays, tucked into the corner -->
+  <button type="button" class="ind-pp" id="indPP" aria-label="Pause the animation" aria-pressed="false" title="Pause">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10" rx="1" /><rect x="9.4" y="3" width="2.6" height="10" rx="1" /></svg>
+  </button>
+</section>
+
+<script>
+  import { startIndustries } from '../../scripts/industries';
+  startIndustries();
+</script>

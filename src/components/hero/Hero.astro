@@ -1,0 +1,64 @@
+---
+import { getImage } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import '../../styles/hero.css';
+import ribs from '../../assets/bg-curved-ribs.webp';
+import ribsWide from '../../assets/bg-curved-ribs-wide.webp';
+
+// The background must appear with the page, not seconds later. Laptops and desktops get a wide crop of the photo
+// (about 40 KB at full size) instead of the tall original; phones in portrait keep the tall one. Both are WebP, which
+// the dev server encodes quickly. A ~100-byte blurred preview is painted first, inline, so there is never a blank wall.
+const wide = await Promise.all([960, 1440, 1920, 2400].map((w) => getImage({ src: ribsWide, width: w, format: 'webp', quality: 80 })));
+const tall = await Promise.all([640, 960, 1280].map((w) => getImage({ src: ribs, width: w, format: 'webp', quality: 80 })));
+const set = (imgs: { src: string; attributes: Record<string, any> }[]) => imgs.map((i) => `${i.src} ${i.attributes.width}w`).join(', ');
+const PREVIEW_WIDE = 'data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAwAwCdASogABAAPu1krU2ppaSiMAgBMB2JaQAAetFa42QAAP7wfgxhd3bMrqz6f6kanyg9ijdZ1gAA';
+const PREVIEW_TALL = 'data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADQBACdASogADAAPu1oqFCppaOiqqoBMB2JaWg/n0L5ANH+7AA34ZYT75B6f2W/AAD+8I4WscwX78ztpTC+gFqYc9a6rPYlAjDBvZl8wCm+J0Pk2d1PfXo8GlR6sNjYypPBdtrmAAA=';
+import ToolWindows from './ToolWindows.astro';
+import NuumxWindow from './NuumxWindow.astro';
+---
+<section class="hero-track" id="heroTrack" aria-labelledby="heroTitle">
+  <div class="hero" id="hero">
+    <div class="wall" aria-hidden="true" style={`--pw:url(${PREVIEW_WIDE});--pt:url(${PREVIEW_TALL})`}>
+      <picture>
+        <source media="(orientation: landscape)" srcset={set(wide)} sizes="100vw" type="image/webp" />
+        <img src={tall[1].src} srcset={set(tall)} sizes="100vw" alt="" width="1280" height="1920" loading="eager" fetchpriority="high" decoding="async" class="wall-img" />
+      </picture>
+    </div>
+    <div class="shade" aria-hidden="true"></div>
+    <!-- Cursor trail: hero-trail.ts reuses these five tiles (and copies of them) as the mouse moves. -->
+    <div class="trail" id="trail" aria-hidden="true">
+      <span class="drop"><Icon name="material-symbols:chat-outline" class="icon" /></span>
+      <span class="drop"><Icon name="material-symbols:call-outline" class="icon" /></span>
+      <span class="drop"><Icon name="material-symbols:sms-outline" class="icon" /></span>
+      <span class="drop"><Icon name="material-symbols:mail-outline" class="icon" /></span>
+      <span class="drop"><Icon name="material-symbols:database-outline" class="icon" /></span>
+    </div>
+
+    <div class="hero-head">
+      <h1 id="heroTitle"><span class="l1">Five apps.</span><br /><span class="l2">One AI Employee.</span></h1>
+      <p class="sub">Your chatbot, dialer, WhatsApp, inbox and CRM, replaced by one AI Employee that works every lead, day and night.</p>
+      <div class="ctas">
+        <button class="btn-primary" type="button" data-open="demo" data-track="hero_demo">Book a free demo</button>
+        <button class="btn-link" type="button" data-open="call" data-track="hero_call">
+          <span class="ic glass"><Icon name="material-symbols:call-outline" class="icon" /></span>Get a call from Riya
+        </button>
+      </div>
+    </div>
+
+    <p class="sr-only">Illustration: five separate tools, a website chatbot, a calling bot, WhatsApp, an email inbox and a CRM, each losing part of a customer's story, merge into one nuumx window where Riya handles the whole conversation from first chat to a booked visit.</p>
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="floor"></div>
+      <div class="scene" id="scene">
+        <ToolWindows />
+        <NuumxWindow />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startHeroMerge } from '../../scripts/hero-merge';
+  import { startHeroTrail } from '../../scripts/hero-trail';
+  startHeroMerge();
+  startHeroTrail();
+</script>

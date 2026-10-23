@@ -1,0 +1,81 @@
+/* Testimonials. Every class is prefixed ts- so nothing collides with other sections.
+   The ribbon geometry (card width, ring radius, perspective, scale) is set by the script from the viewport; CSS reads
+   it through --cw (card width), --chh (card height), --sh (stage height) and --rt (headroom above the cards). */
+
+.ts{--mist:#5A6A9E;--mist-soft:#E9ECF5;--mist-ink:#47568A;--sage-soft:#E7EFEA;--sage-ink:#3E6A55;--sand-soft:#F3EDE3;--sand-ink:#7A5E33;
+  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;
+  background:var(--bg);overflow:hidden;scroll-margin-top:72px}
+.ts-in{max-width:1280px;margin:0 auto;padding:clamp(80px,11svh,136px) clamp(16px,4vw,48px) 0}
+.ts-head{display:grid;gap:14px 64px}
+.ts-head h2{font-weight:500;font-size:clamp(32px,min(3.2vw,6svh),48px);line-height:1.02;letter-spacing:-.048em}
+.ts-head h2 span{color:var(--faint)}
+.ts-head p{max-width:34ch;margin-top:12px;font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--muted)}
+@media (min-width:1024px){.ts-head{grid-template-columns:minmax(0,1fr) minmax(260px,300px);align-items:end}}
+.ts-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:var(--mist-soft);color:var(--mist-ink);font-size:13px}
+.ts-pill i{width:6px;height:6px;border-radius:50%;background:var(--mist)}
+
+.ts-stage{position:relative;height:var(--sh,620px);margin-top:clamp(4px,1svh,16px);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.ts-stage.is-drag{cursor:grabbing}
+.ts-stage:focus-visible{outline:none}
+.ts-stage:focus-visible .ts-card.is-front{box-shadow:0 0 0 2px var(--mist),0 30px 60px -34px rgba(30,40,58,.42)}
+.ts-floor{position:absolute;left:50%;bottom:0;width:min(1100px,90vw);height:200px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(90,106,158,.10),rgba(90,106,158,0));pointer-events:none}
+.ts-rib{position:absolute;left:50%;top:var(--rt,40px);transform-style:preserve-3d;transform-origin:0 0}
+.ts-card{position:absolute;left:calc(var(--cw,340px) / -2);top:0;width:var(--cw,340px);height:var(--chh,auto);padding:22px 24px 20px;border-radius:26px;overflow:hidden;display:flex;flex-direction:column;
+  background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(255,255,255,.8));border:1px solid #fff;
+  box-shadow:0 1px 2px rgba(30,40,58,.05),0 30px 60px -34px rgba(30,40,58,.42),inset 0 1px 0 #fff;backface-visibility:hidden;will-change:transform,opacity}
+.ts-card::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgba(90,106,158,0),rgba(90,106,158,.6) 50%,rgba(90,106,158,0))}
+.ts-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 50% at 0% 0%,var(--mist-soft),rgba(233,236,245,0) 62%)}
+.ts-card > *{position:relative;z-index:1}
+.ts-top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted)}
+.ts-top span:first-child{display:inline-flex;align-items:center;gap:8px}
+.ts-top span:first-child::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--mist)}
+.ts-smp{padding:2px 8px;border-radius:999px;border:1px dashed rgba(14,16,19,.28);font-size:10.5px;color:var(--muted)}
+.ts-res{margin-top:12px;font-size:46px;font-weight:500;letter-spacing:-.055em;line-height:.95;font-variant-numeric:tabular-nums}
+.ts-rl{margin-top:6px;font-size:13.5px;color:var(--muted)}
+
+/* receipts: small artefacts of Riya's work */
+.ts-rc{margin-top:14px;padding:11px 12px;border-radius:16px;background:rgba(244,245,247,.9);border:1px solid rgba(14,16,19,.06);font-size:12.5px;line-height:1.4;color:var(--ink-2)}
+.ts-rc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.ts-rc-note{margin-top:6px}
+.ts-rc-subj{font-weight:500;color:var(--ink)}
+.ts-rc-mono{margin-top:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.ts-bub{max-width:88%;padding:7px 10px;border-radius:12px;background:#fff;box-shadow:0 1px 1px rgba(14,16,19,.06);line-height:1.35}
+.ts-bub + .ts-bub{margin-top:6px}
+.ts-bub--me{margin-left:auto;background:#D9FDD3}
+.ts-bub small{display:block;margin-top:2px;text-align:right;font-size:10px;color:#6B7E6A}
+.ts-wave{display:flex;align-items:center;gap:2px;height:26px}
+.ts-wave i{flex:1;border-radius:2px;background:rgba(90,106,158,.45)}
+.ts-cal{display:flex;gap:10px;align-items:center}
+.ts-cal-d{flex:none;width:42px;border-radius:9px;overflow:hidden;text-align:center;background:#fff;box-shadow:0 1px 1px rgba(14,16,19,.06)}
+.ts-cal-d b{display:block;padding:2px 0;font-size:9.5px;font-weight:500;letter-spacing:.06em;color:#fff;background:var(--mist)}
+.ts-cal-d span{display:block;padding:2px 0 3px;font-size:17px;font-weight:500;color:var(--ink)}
+.ts-cal p{line-height:1.35}
+.ts-cal p b{display:block;font-weight:500;color:var(--ink)}
+.ts-stg{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ts-stg s{text-decoration:none;color:var(--faint)}
+.ts-bar{height:5px;margin-top:8px;border-radius:3px;background:rgba(14,16,19,.07);overflow:hidden}
+.ts-bar i{display:block;height:100%;background:linear-gradient(90deg,rgba(90,106,158,.5),var(--mist))}
+
+/* status chips, three very soft tints */
+.ts-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ts-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;line-height:1.3;white-space:nowrap}
+.ts-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7}
+.ts-chip--mist{background:var(--mist-soft);color:var(--mist-ink)}
+.ts-chip--sage{background:var(--sage-soft);color:var(--sage-ink)}
+.ts-chip--sand{background:var(--sand-soft);color:var(--sand-ink)}
+
+.ts-q{padding:12px 0 14px;font-size:14.5px;line-height:1.45;color:var(--ink-2);text-wrap:pretty}
+.ts-who{display:flex;gap:10px;align-items:center;margin-top:auto;padding-top:12px;border-top:1px solid rgba(14,16,19,.08)}
+.ts-av{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--mist-soft);color:var(--mist-ink);font-size:11px;font-weight:600}
+.ts-who b{display:block;font-size:13px;font-weight:500}
+.ts-who small{display:block;font-size:12px;color:var(--muted)}
+
+.ts-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ts-foot{max-width:1280px;margin:0 auto;padding:4px clamp(16px,4vw,48px) clamp(64px,9svh,110px);display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;color:var(--muted)}
+.ts-hint{display:inline-flex;align-items:center;gap:10px}
+.ts-hint i{width:28px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--mist),rgba(90,106,158,0))}
+.ts-pp{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font:inherit;font-size:13px;color:var(--ink);cursor:pointer}
+.ts-pp:focus-visible{outline:2px solid var(--mist);outline-offset:3px}
+.ts-pp[hidden]{display:none}
+@media (prefers-reduced-transparency:reduce){.ts-card{background:#fff}}

@@ -1,0 +1,83 @@
+---
+// Testimonials: a concave glass ribbon of client cards that loops like a video. Each card leads with the result, then a
+// "receipt" (a small artefact of Riya's work: a WhatsApp reply, a call, a calendar invite, a CRM stage, an email),
+// two quiet status chips, the quote and who said it. Hover or focus eases the loop to a stop; drag, flick or the arrow
+// keys move it. Screen readers get the same stories as a plain list. Copy lives in src/data/testimonials.ts.
+//
+// While the data is placeholder (SAMPLE), the section only renders in development, never in a production build.
+import '../../styles/testimonials.css';
+import { SAMPLE, TESTIMONIALS as T, TESTIMONIALS_HEAD as H } from '../../data/testimonials';
+
+const show = !SAMPLE || import.meta.env.DEV;
+if (SAMPLE && import.meta.env.PROD) console.warn('[testimonials] Sample data: section left out of this build. Add real clients and set SAMPLE = false.');
+const wave = [6, 12, 18, 9, 22, 14, 26, 11, 17, 24, 8, 19, 13, 25, 10, 16, 21, 7, 15, 20, 12, 23, 9, 14];
+---
+{show && (
+<section class="ts ribbed" id="testimonials" aria-labelledby="tsTitle">
+  <div class="ts-in">
+    <header class="ts-head">
+      <h2 id="tsTitle">{H.title}<br /><span>{H.titleSoft}</span></h2>
+      <div><span class="ts-pill"><i></i>{H.pill}</span><p>{H.lede}</p></div>
+    </header>
+  </div>
+
+  <div class="ts-stage" id="tsStage" tabindex="0" role="region" aria-label="Client stories. Use the left and right arrow keys to move.">
+    <div class="ts-floor" aria-hidden="true"></div>
+    <div class="ts-rib" aria-hidden="true">
+      {T.map((t) => (
+        <article class="ts-card">
+          <div class="ts-top"><span>{t.industry}</span>{SAMPLE && <span class="ts-smp">Sample</span>}</div>
+          <div class="ts-res">{t.result}</div>
+          <div class="ts-rl">{t.resultLabel}</div>
+
+          {t.receipt.kind === 'wa' && (
+            <div class="ts-rc"><div class="ts-rc-h"><span>WhatsApp</span><span>{t.receipt.time}</span></div>
+              {t.receipt.msgs.map((m) => <div class={`ts-bub${m.mine ? ' ts-bub--me' : ''}`}>{m.text}{m.stamp && <small>{m.stamp}</small>}</div>)}
+            </div>
+          )}
+          {t.receipt.kind === 'call' && (
+            <div class="ts-rc"><div class="ts-rc-h"><span>Call · {t.receipt.length}</span><span>{t.receipt.time}</span></div>
+              <div class="ts-wave">{wave.map((h) => <i style={`height:${h}px`}></i>)}</div>
+              <p class="ts-rc-note">{t.receipt.note}</p>
+            </div>
+          )}
+          {t.receipt.kind === 'cal' && (
+            <div class="ts-rc"><div class="ts-rc-h"><span>Calendar invite</span><span>{t.receipt.time}</span></div>
+              <div class="ts-cal"><div class="ts-cal-d"><b>{t.receipt.month}</b><span>{t.receipt.day}</span></div><p><b>{t.receipt.title}</b>{t.receipt.when}</p></div>
+            </div>
+          )}
+          {t.receipt.kind === 'crm' && (
+            <div class="ts-rc"><div class="ts-rc-h"><span>CRM · lead stage</span><span>{t.receipt.time}</span></div>
+              <div class="ts-stg"><s>{t.receipt.from}</s><span>→</span><span class="ts-chip ts-chip--mist">{t.receipt.to}</span></div>
+              {t.receipt.bar && <><div class="ts-bar"><i style={`width:${t.receipt.bar.pct}%`}></i></div><p class="ts-rc-mono">{t.receipt.bar.note}</p></>}
+            </div>
+          )}
+          {t.receipt.kind === 'mail' && (
+            <div class="ts-rc"><div class="ts-rc-h"><span>Email · sent</span><span>{t.receipt.time}</span></div>
+              <p class="ts-rc-subj">{t.receipt.subject}</p><p class="ts-rc-note">{t.receipt.body}</p>
+            </div>
+          )}
+
+          <div class="ts-chips">{t.chips.map(([tint, label]) => <span class={`ts-chip ts-chip--${tint}`}>{label}</span>)}</div>
+          <p class="ts-q">{t.quote}</p>
+          <div class="ts-who"><span class="ts-av">{t.initials}</span><div><b>{t.role}</b><small>{t.business}</small></div></div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <ul class="ts-sr">
+    {T.map((t) => <li>{t.role}, {t.business}{SAMPLE ? ' (sample)' : ''}: {t.result} {t.resultLabel}. {t.quote}</li>)}
+  </ul>
+
+  <div class="ts-foot">
+    <span class="ts-hint"><i></i><span id="tsHint">Hover to pause · drag to explore</span></span>
+    <button type="button" class="ts-pp" id="tsPP" aria-pressed="false">Pause</button>
+  </div>
+</section>
+)}
+
+<script>
+  import { startTestimonials } from '../../scripts/testimonials';
+  startTestimonials();
+</script>

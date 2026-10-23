@@ -1,0 +1,121 @@
+---
+// How it works: one lead (Priya, from the hero) followed through five channels, one moment at a time.
+// Desktop and landscape tablets (wide and tall enough): the stage pins while you scroll; a rolling clock, the step text and one phone change
+// together, with a progress line along the bottom. Phones, portrait tablets, short screens and no-JS: the same steps as a plain list.
+// Proof and buttons follow in normal flow. Copy lives in src/data/how-it-works.ts; motion in src/scripts/how-it-works.ts.
+import { Icon } from 'astro-icon/components';
+import { Picture } from 'astro:assets';
+import '../../styles/how.css';
+import ribs from '../../assets/how-ribs.webp';
+import PhoneScreen from './PhoneScreen.astro';
+import { HOW, clockParts } from '../../data/how-it-works';
+
+const CH = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const steps = HOW.steps.map((s) => ({ ...s, ...clockParts(s.minutes) }));
+---
+<section class="hw" id="how" aria-labelledby="howTitle">
+  <header class="hw-head">
+    <h2 id="howTitle">{HOW.title} <span>{HOW.titleSoft}</span></h2>
+    <p>{HOW.lede}</p>
+  </header>
+
+  <div class="hw-pin">
+    <div class="hw-sticky">
+      <div class="hw-bg" aria-hidden="true">
+        <Picture src={ribs} alt="" formats={['avif']} fallbackFormat="webp" widths={[960, 1440, 1920]} sizes="100vw" loading="lazy" />
+      </div>
+
+      <div class="hw-frame">
+
+        <div class="hw-mbar" aria-hidden="true">
+          {steps.map((_, i) => <i class:list={{ 'is-on': i === 0 }}></i>)}
+          <span class="hw-mbar-t">{steps[0].time} {steps[0].ap}</span>
+        </div>
+
+        <div class="hw-text">
+          <div class="hw-clock" aria-hidden="true">
+            <span class="hw-digits">
+              {[0, 1, 2, 3, 4].map((c) => c === 2
+                ? <span class="hw-colon">:</span>
+                : <span class="hw-col"><span class="hw-stk">{CH.map((ch) => <span>{ch === ' ' ? ' ' : ch}</span>)}</span></span>)}
+            </span>
+            <span class="hw-ap"><span>pm</span><span>am</span></span>
+          </div>
+
+          <ol class="hw-steps">
+            {steps.map((s, i) => (
+              <li class="hw-step" data-min={s.minutes} data-viewer={s.viewer}>
+                <p class="hw-time">{s.time}<small>{s.ap}</small></p>
+                <p class="hw-label"><Icon name={`material-symbols:${s.icon}`} class="icon" /><b>{s.n} {s.key}</b>{s.channel}</p>
+                <h3 class="hw-title">{s.title}</h3>
+                <p class="hw-body">{s.body}</p>
+                <p class="hw-mem"><span>Riya remembers</span>{s.remembers}</p>
+                <div class="hw-shot" aria-hidden="true">
+                  <div class="hw-phone">
+                    <div class="hw-scr">
+                      <span class="hw-isl"></span><PhoneScreen step={i} />
+                      {i === 2 && (
+                        <div class="hw-banner"><span class="hw-app-ic hw-app-ic--wa"><Icon name="material-symbols:sms-outline" /></span><span><b>Interior Studio</b>Studio brochure.pdf and 3 visit slots</span><small>now</small></div>
+                      )}
+                      {i === 3 && (
+                        <div class="hw-banner"><span class="hw-app-ic hw-app-ic--mail"><Icon name="material-symbols:mail-outline" /></span><span><b>Interior Studio</b>Your site visit, Saturday 11:00 am</span><small>now</small></div>
+                      )}
+                      {i === 4 && <div class="hw-black"></div>}
+                    </div>
+                  </div>
+                  <p class="hw-cap">{s.viewer}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="hw-device" aria-hidden="true">
+          <div class="hw-phone-box">
+            <div class="hw-phone">
+              <div class="hw-scr">
+                <span class="hw-isl"></span>
+                {steps.map((_, i) => <PhoneScreen step={i} />)}
+                <div class="hw-banner" data-for="2">
+                  <span class="hw-app-ic hw-app-ic--wa"><Icon name="material-symbols:sms-outline" /></span>
+                  <span><b>Interior Studio</b>Studio brochure.pdf and 3 visit slots</span><small>now</small>
+                </div>
+                <div class="hw-banner" data-for="3">
+                  <span class="hw-app-ic hw-app-ic--mail"><Icon name="material-symbols:mail-outline" /></span>
+                  <span><b>Interior Studio</b>Your site visit, Saturday 11:00 am</span><small>now</small>
+                </div>
+                <div class="hw-black"></div>
+                <div class="hw-glint"></div>
+              </div>
+            </div>
+          </div>
+          <p class="hw-cap hw-cap--device">{steps[0].viewer}</p>
+        </div>
+
+        <div class="hw-prog" aria-hidden="true">
+          <span class="hw-track"><i class="hw-fill"></i></span>
+          {steps.map((s) => <span class="hw-pl"><Icon name={`material-symbols:${s.icon}`} class="icon" />{s.time} {s.ap}</span>)}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hw-close">
+    <div class="hw-after"><p class="hw-after-l">Afterwards</p><p class="hw-after-t">{HOW.afterwards}</p></div>
+    <ul class="hw-stats">
+      {HOW.stats.map((s) => <li><b>{s.big}</b><span>{s.label}</span></li>)}
+    </ul>
+    <div class="hw-cta">
+      <p>{HOW.closing}</p>
+      <div class="hw-btns">
+        <button class="hw-call" type="button" data-open="call" data-track="how_call"><span class="hw-call-ic glass"><Icon name="material-symbols:call-outline" class="icon" /></span>Get a call from Riya</button>
+        <button class="btn-primary" type="button" data-open="demo" data-track="how_demo">Book a free demo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startHowItWorks } from '../../scripts/how-it-works';
+  startHowItWorks();
+</script>

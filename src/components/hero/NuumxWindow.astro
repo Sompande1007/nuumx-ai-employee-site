@@ -1,0 +1,57 @@
+---
+// The end state: one nuumx window where Riya runs Priya's whole journey as one conversation.
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import wordmark from '../../assets/nuumx-wordmark.png';
+
+const leads = [
+  { av: 'PS', name: 'Priya Sharma', status: 'Visit booked, Sat', on: true },
+  { av: 'RM', name: 'Rahul Mehta', status: 'On a call with Riya' },
+  { av: 'AK', name: 'Ananya Kulkarni', status: 'Brochure sent' },
+  { av: 'VS', name: 'Vikram Shetty', status: 'Documents pending' }
+];
+const steps = [
+  { icon: 'chat-outline', ch: 'Chat', at: '11:40 pm', text: 'Asks what a 3BHK costs. Riya shares the range and takes her number.' },
+  { icon: 'call-outline', ch: 'Call', at: '11:42 pm', text: 'Calls back knowing her question. Budget and timeline confirmed.', wave: true },
+  { icon: 'sms-outline', ch: 'WhatsApp', at: '11:47 pm', text: 'Brochure and three slots sent. Priya picks Saturday.' },
+  { icon: 'mail-outline', ch: 'Email', at: 'Next day', text: 'Estimate and calendar invite confirmed.' },
+  { icon: 'database-outline', ch: 'CRM', at: 'Instantly', text: 'Moved to Visit booked and handed to Rahul.' }
+];
+const facts = [
+  { k: 'Budget', v: '₹6-8 lakh' },
+  { k: 'Next step', v: 'Site visit, Sat 11:00 am' },
+  { k: 'Owner', v: 'Rahul, sales' },
+  { k: 'Handled by', v: 'Riya, end to end' }
+];
+---
+<div class="win one" id="one">
+  <div class="ot"><Image src={wordmark} alt="" width={59} height={16} densities={[1, 2]} /><small>Riya is working this lead</small></div>
+  <div class="ob">
+    <aside class="side">
+      <span class="srch"><Icon name="material-symbols:search" class="icon" />Search leads</span>
+      {leads.map((l) => (
+        <div class:list={['lead', { on: l.on }]}><span class="av">{l.av}</span><span><b>{l.name}</b><small>{l.status}</small></span></div>
+      ))}
+    </aside>
+    <div class="thread">
+      <div class="th"><b>Priya Sharma</b><span>3BHK interiors, Pune</span></div>
+      <ol>
+        {steps.map((s) => (
+          <li>
+            <span class="ic"><Icon name={`material-symbols:${s.icon}`} class="icon" /></span>
+            <div>
+              <div class="hd">{s.ch}<small>{s.at}</small></div>
+              <p>{s.text}</p>
+              {s.wave && <span class="wave" data-wave="20" data-seed="6"></span>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <aside class="info">
+      <div><span>Stage</span><b><span class="ok">Visit booked</span></b></div>
+      {facts.map((f) => <div><span>{f.k}</span><b>{f.v}</b></div>)}
+    </aside>
+  </div>
+  <span class="sh"></span>
+</div>

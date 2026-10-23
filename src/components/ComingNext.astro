@@ -1,0 +1,22 @@
+---
+// Temporary placeholder. The header links already point at these anchors; each item is replaced
+// by its real section as we design it.
+const upcoming = [
+  { id: 'hear', label: 'Hear Riya' },
+  { id: 'roi', label: 'Calculate your ROI' },
+  { id: 'pricing', label: 'Pricing at a glance' }
+];
+---
+<section class="next" aria-labelledby="nextTitle">
+  <h2 id="nextTitle">Sections coming next</h2>
+  <p>These are designed next, in this order. The menu links already point to them.</p>
+  <ol>{upcoming.map((s) => <li id={s.id}>{s.label}</li>)}</ol>
+</section>
+
+<style>
+  .next{max-width:1100px;margin:0 auto;padding:110px clamp(16px,4vw,48px) 140px}
+  h2{font-weight:500;font-size:28px;letter-spacing:-.03em}
+  p{color:var(--muted);margin-top:8px;max-width:60ch}
+  ol{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  li{padding:18px;border-radius:16px;border:1px dashed rgba(14,16,19,.18);color:var(--muted);font-size:14px;scroll-margin-top:96px}
+</style>

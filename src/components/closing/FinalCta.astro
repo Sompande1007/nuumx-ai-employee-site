@@ -1,0 +1,30 @@
+---
+// The page's final call to action: one dark, frosted panel (the only dark moment on the page) with the closing line,
+// "Book a free demo" as the highlighted button, "Get a call from Riya" beside it and a quiet WhatsApp link below.
+import { Icon } from 'astro-icon/components';
+import '../../styles/closing.css';
+import { FINAL_CTA as C } from '../../data/final-cta';
+import { LEADS } from '../../config/site';
+const wa = String(LEADS.whatsapp || '').replace(/\D/g, '');
+const waHref = wa ? `https://wa.me/${wa}?text=${encodeURIComponent('Hi, I would like a demo of the nuumx AI Employee.')}` : '';
+---
+<section class="fc" id="demo" aria-labelledby="fcTitle">
+  <div class="fc-in">
+    <div class="fc-panel">
+      <span class="fc-eyebrow">{C.eyebrow}</span>
+      <h2 id="fcTitle">{C.title}<br /><span>{C.titleSoft}</span></h2>
+      <p class="fc-lede">{C.lede}</p>
+      <div class="fc-actions">
+        <button class="fc-primary" type="button" data-open="demo" data-track="final_demo">{C.primary}<Icon name="material-symbols:arrow-forward" class="fc-arrow" /></button>
+        <button class="fc-secondary" type="button" data-open="call" data-track="final_call"><span class="fc-ic"><Icon name="material-symbols:call-outline" /></span>{C.secondary}</button>
+      </div>
+      {waHref && <a class="fc-wa" href={waHref} target="_blank" rel="noopener" data-track="final_whatsapp"><Icon name="material-symbols:chat-outline" />{C.whatsapp}</a>}
+      <ul class="fc-facts">{C.facts.map((f) => <li>{f}</li>)}</ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startClosing } from '../../scripts/closing';
+  startClosing();
+</script>

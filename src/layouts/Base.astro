@@ -1,0 +1,35 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { SITE } from '../config/site';
+
+interface Props { title?: string; description?: string }
+const { title = SITE.name, description = SITE.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#EEF0F3" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={SITE.ogTitle} />
+    <meta property="og:description" content={SITE.ogDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Start the shared scroll engine (Lenis + GSAP) on every page.
+      import '../scripts/motion/scroll';
+    </script>
+  </body>
+</html>

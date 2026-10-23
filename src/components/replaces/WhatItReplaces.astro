@@ -1,0 +1,35 @@
+---
+// What it replaces: a calm spec comparison. Two columns, Today (grey) and With Riya (ink, on one frosted strip);
+// each cell is one figure and a short caption. Rows rise in once on scroll. It's a real table, so screen readers
+// read it as one. Copy lives in src/data/what-it-replaces.ts.
+import '../../styles/replaces.css';
+import { REPLACES as R } from '../../data/what-it-replaces';
+---
+<section class="wr ribbed" id="replaces" aria-labelledby="wrTitle">
+  <div class="wr-in">
+    <header class="wr-head">
+      <h2 id="wrTitle">{R.title}<br /><span>{R.titleSoft}</span></h2>
+      <p>{R.lede}</p>
+    </header>
+    <table class="wr-spec">
+      <caption class="wr-sr">{R.today} compared with {R.riya}</caption>
+      <thead>
+        <tr><td></td><th scope="col" class="wr-t"><span class="wr-pill">{R.today}</span></th><th scope="col" class="wr-r"><span class="wr-pill">{R.riya}</span></th></tr>
+      </thead>
+      <tbody>
+        {R.rows.map((r) => (
+          <tr>
+            <th scope="row">{r.label}</th>
+            <td class="wr-t"><b>{r.today[0]}</b> <span>{r.today[1]}</span></td>
+            <td class="wr-r"><b>{r.riya[0]}</b> <span>{r.riya[1]}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  import { startWhatItReplaces } from '../../scripts/what-it-replaces';
+  startWhatItReplaces();
+</script>

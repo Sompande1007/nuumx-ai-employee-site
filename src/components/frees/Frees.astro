@@ -1,0 +1,29 @@
+---
+// "It doesn't replace your team. It frees them." A dark interlude right after What it replaces. On scroll, the
+// busywork chips are pulled into Riya's glow one by one; then the team's chips light up and "It frees them." turns
+// white. The summary line says the same thing in words, so nothing depends on the motion. Copy in src/data/frees.ts.
+import '../../styles/frees.css';
+import { FREES as F } from '../../data/frees';
+---
+<section class="fr" id="frees" aria-labelledby="frTitle">
+  <div class="fr-in">
+    <h2 id="frTitle">{F.title}<span class="fr-soft">{F.titleSoft}</span></h2>
+    <div class="fr-stage">
+      <div class="fr-side fr-l">
+        <p class="fr-lab"><span class="fr-la">{F.busyLabel}</span><span class="fr-lb" aria-hidden="true">{F.handledLabel}</span></p>
+        <ul>{F.riyaDoes.map((c) => <li class="fr-chip fr-busy">{c}</li>)}</ul>
+      </div>
+      <div class="fr-orb" aria-hidden="true"><span class="fr-ring fr-r2"></span><span class="fr-ring"></span><span class="fr-core"></span><span class="fr-name">Riya</span></div>
+      <div class="fr-side fr-r">
+        <p class="fr-lab">{F.teamLabel}</p>
+        <ul>{F.teamKeeps.map((c) => <li class="fr-chip fr-team">{c}</li>)}</ul>
+      </div>
+    </div>
+    <p class="fr-cap"><b>{F.summaryRiya}</b> {F.summaryRiyaText} <b>{F.summaryTeam}</b> {F.summaryTeamText}</p>
+  </div>
+</section>
+
+<script>
+  import { startFrees } from '../../scripts/frees';
+  startFrees();
+</script>

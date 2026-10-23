@@ -1,0 +1,68 @@
+---
+// The five separate tools a business juggles today. Each shows one moment where the customer's story gets lost.
+import { Icon } from 'astro-icon/components';
+const dots = '<i></i><i></i><i></i>';
+---
+<div class="win app w0">
+  <div class="rb"><Fragment set:html={dots} /><span class="url">interiorstudio.in</span></div>
+  <div class="site">
+    <div class="s-hero"><b>Design your dream home</b><small>3BHK interiors, Pune</small><span class="s-btn">Get a quote</span></div>
+    <div class="cw">
+      <div class="cw-h"><span class="cw-av">S</span><span><b>Studio assistant</b><small>Typically replies in a day</small></span></div>
+      <div class="cw-b"><span class="m u">What does a 3BHK cost?</span><span class="m b">Please leave your number. Our team will call you.</span></div>
+      <div class="cw-i">Type a message…</div>
+    </div>
+  </div>
+  <span class="sh"></span>
+</div>
+
+<div class="win app dark w1">
+  <div class="rb dark"><Fragment set:html={dots} /><span class="ttl">Calling bot</span></div>
+  <div class="call">
+    <span class="cav">PS</span><b>Priya Sharma</b><small>+91 98765 •••••</small><span class="ctime">00:42</span>
+    <span class="wave" data-wave="30" data-seed="3"></span>
+    <span class="cnote">No chat history for this caller</span>
+    <div class="cbtns">
+      <span><Icon name="material-symbols:mic-off-outline" class="icon" /></span>
+      <span><Icon name="material-symbols:dialpad" class="icon" /></span>
+      <span class="end"><Icon name="material-symbols:call-end" class="icon" /></span>
+    </div>
+  </div>
+  <span class="sh"></span>
+</div>
+
+<div class="win app w2">
+  <div class="wa-h"><span class="wav">PS</span><span><b>Priya Sharma</b><small>online</small></span></div>
+  <div class="wa-b">
+    <span class="wmsg in">Hi, I asked about a 3BHK on your website<span class="meta">9:52 pm</span></span>
+    <span class="wmsg out">Could you share your requirement again?<span class="meta">9:58 pm <Icon name="material-symbols:done-all" class="icon" /></span></span>
+    <span class="wmsg in">I already told your chatbot.<span class="meta">9:59 pm</span></span>
+  </div>
+  <div class="wa-i"><span>Type a message</span></div>
+  <span class="sh"></span>
+</div>
+
+<div class="win app w3">
+  <div class="rb"><Fragment set:html={dots} /><span class="ttl">Inbox</span></div>
+  <div class="em-s"><Icon name="material-symbols:search" class="icon" />Search mail</div>
+  <div class="er unread"><span class="n">Priya Sharma</span><span><b>Re: Quote for 3BHK</b> Still waiting for the estimate</span><time>9:12 am</time></div>
+  <div class="er unread"><span class="n">Rahul Mehta</span><span><b>Site visit timing?</b> Can we do Saturday</span><time>Sun</time></div>
+  <div class="er"><span class="n">Email tool</span><span><span class="echip">Invoice</span>Your October invoice</span><time>Mon</time></div>
+  <div class="er"><span class="n">Ananya Kulkarni</span><span><b>Fee structure please</b></span><time>Sat</time></div>
+  <span class="sh"></span>
+</div>
+
+<div class="win app w4">
+  <div class="rb"><Fragment set:html={dots} /><span class="ttl">CRM</span></div>
+  <div class="c-tool"><b>Leads</b><small>248</small><span class="c-f">Filter</span><span class="c-n">+ New lead</span></div>
+  <table class="ct">
+    <thead><tr><th>Name</th><th>Stage</th><th>Owner</th><th>Last activity</th></tr></thead>
+    <tbody>
+      <tr><td>Priya Sharma</td><td><span class="st new">New</span></td><td class="mu">Unassigned</td><td class="mu">3 days ago</td></tr>
+      <tr><td>Rahul Mehta</td><td><span class="st con">Contacted</span></td><td>Neha</td><td class="mu">Yesterday</td></tr>
+      <tr><td>Ananya Kulkarni</td><td><span class="st new">New</span></td><td class="mu">Unassigned</td><td class="mu">5 days ago</td></tr>
+      <tr><td>Vikram Shetty</td><td><span class="st new">New</span></td><td class="mu">Unassigned</td><td class="mu">1 week ago</td></tr>
+    </tbody>
+  </table>
+  <span class="sh"></span>
+</div>

@@ -1,0 +1,73 @@
+/* How it helps your business. Every class is prefixed hb- so nothing collides with other sections.
+   Desktop: a tab list (left) and one glass panel (right). All panes share one grid cell, so the panel keeps the
+   tallest pane's height and never jumps; hidden panes stay in layout but invisible. Phone: an accordion. */
+
+.hb{position:relative;background:var(--bg);scroll-margin-top:72px}
+.hb-in{position:relative;max-width:1280px;margin:0 auto;padding:clamp(80px,11svh,136px) clamp(16px,4vw,48px) clamp(64px,9svh,110px)}
+.hb-head{display:grid;gap:14px 64px}
+.hb-head h2{font-weight:500;font-size:clamp(34px,min(4.4vw,7svh),60px);line-height:1.02;letter-spacing:-.048em}
+.hb-head h2 span{color:var(--faint)}
+.hb-head p{max-width:40ch;font-size:clamp(15px,1.15vw,17px);line-height:1.55;color:var(--muted)}
+@media (min-width:1024px){
+  .hb-head{grid-template-columns:minmax(0,1fr) minmax(280px,340px);align-items:end}
+  .hb-head p{margin-bottom:4px}
+}
+
+.hb-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);margin-top:clamp(36px,6svh,64px);align-items:start}
+.hb-list{position:relative;border-bottom:1px solid var(--line)}
+.hb-tab{position:relative;width:100%;height:clamp(76px,11.5svh,112px);display:flex;align-items:center;gap:clamp(14px,1.6vw,22px);padding:0;border:0;border-top:1px solid var(--line);background:none;text-align:left;font:inherit;font-weight:500;font-size:clamp(30px,min(3.6vw,6.2svh),52px);letter-spacing:-.045em;color:var(--faint);cursor:pointer;transition:color .35s var(--ease-out)}
+.hb-tab small{width:22px;font-size:13px;letter-spacing:0;font-variant-numeric:tabular-nums}
+.hb-tab:hover{color:#6E747D}
+.hb-tab[aria-selected="true"]{color:var(--ink)}
+.hb-tab:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:6px}
+/* one shared indicator glides to the active row (moved with a transform by the script) */
+.hb-ind{position:absolute;left:0;right:0;top:0;pointer-events:none;will-change:transform}
+.hb-ind i{position:absolute;left:0;top:-1px;width:100%;height:2px;background:var(--ink);transform-origin:0 50%}
+.hb-ind b{position:absolute;right:0;top:calc(clamp(76px,11.5svh,112px) / 2 - 22px);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:20px}
+
+.hb-glass{position:relative;border-radius:28px;overflow:hidden;isolation:isolate;box-shadow:0 1px 2px rgba(30,40,58,.05),0 40px 80px -40px rgba(30,40,58,.35)}
+.hb-ribs{position:absolute;inset:-24px;z-index:-2;will-change:transform}
+.hb-photo,.hb-photo img{position:absolute;inset:0;width:100%;height:100%}
+.hb-photo img{object-fit:cover;object-position:60% 40%;filter:grayscale(1) contrast(1.03)}
+.hb-glass::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(140deg,rgba(255,255,255,.88),rgba(255,255,255,.66))}
+.hb-glass::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.8);pointer-events:none}
+.hb-panel{display:grid}
+.hb-pane{grid-area:1/1;padding:clamp(24px,2.6vw,36px) clamp(24px,2.8vw,40px)}
+.hb-panel .hb-pane[hidden]{display:block;visibility:hidden}
+.hb-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:500}
+.hb-tag i{font-style:normal;color:var(--faint);font-variant-numeric:tabular-nums}
+.hb-line{margin:18px 0 8px;font-weight:500;font-size:clamp(24px,2.4vw,34px);line-height:1.1;letter-spacing:-.035em}
+.hb-pts{margin:0;padding:0;list-style:none}
+.hb-pts li{display:grid;grid-template-columns:28px 1fr;gap:3px 14px;padding:clamp(11px,1.7svh,15px) 0;border-top:1px solid rgba(14,16,19,.09)}
+.hb-pts li:first-child{border-top:0}
+.hb-pts em{grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-variant-numeric:tabular-nums;background:rgba(255,255,255,.8);border:1px solid #fff;box-shadow:0 4px 10px -6px rgba(30,40,58,.4)}
+.hb-pts b{font-weight:600;font-size:clamp(15.5px,1.2vw,17px);letter-spacing:-.01em}
+.hb-pts span{color:var(--ink-2);font-size:clamp(14.5px,1.1vw,16px);text-wrap:pretty}
+.hb-cta{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:15px;font-weight:500;color:var(--ink);text-decoration:none}
+.hb-cta i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;border:1px solid rgba(14,16,19,.14);background:#fff;transition:transform .35s var(--ease-out)}
+.hb-cta:hover i{transform:translateX(4px)}
+.hb-cta:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:999px}
+
+/* phone: accordion, the glass panel opens under its gain */
+.hb-acc{display:none}
+@media (max-width:767px){
+  .hb-body{display:none}
+  .hb-acc{display:block;margin-top:32px;border-bottom:1px solid var(--line)}
+  .hb-acc h3{margin:0;font:inherit}
+  .hb-q{width:100%;min-height:64px;display:flex;align-items:center;gap:14px;padding:0;border:0;border-top:1px solid var(--line);background:none;font:inherit;font-size:26px;font-weight:500;letter-spacing:-.04em;color:var(--faint);text-align:left;cursor:pointer}
+  .hb-q small{width:20px;font-size:12px;letter-spacing:0}
+  .hb-q[aria-expanded="true"]{color:var(--ink)}
+  .hb-q:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+  .hb-pm{margin-left:auto;position:relative;width:16px;height:16px}
+  .hb-pm::before,.hb-pm::after{content:"";position:absolute;left:0;top:7px;width:16px;height:1.5px;background:currentColor;transition:transform .35s var(--ease-out)}
+  .hb-pm::after{transform:rotate(90deg)}
+  .hb-q[aria-expanded="true"] .hb-pm::after{transform:rotate(0)}
+  .hb-a{overflow:hidden;height:0;visibility:hidden}
+  .hb-a.is-open{height:auto;visibility:visible}
+  .hb-a .hb-glass{margin:0 0 16px}
+  .hb-a .hb-pane{padding:20px}
+  .hb-a .hb-line{margin:0 0 4px;font-size:22px}
+}
+@media (prefers-reduced-transparency:reduce){
+  .hb-glass::before{background:#fff}
+}
