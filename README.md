@@ -70,3 +70,11 @@ Rules for every section:
 ## Hosting
 
 Deploy `dist/` to Vercel, Netlify or Cloudflare Pages. All three detect Astro automatically and redeploy on every push to the connected Git branch.
+
+## Publishing (GitHub Pages)
+
+This folder is published on its own as the public repository `Sompande1007/nuumx-ai-employee-site`
+(https://sompande1007.github.io/nuumx-ai-employee-site/). Its workflow, `.github/workflows/pages.yml`, builds and
+deploys on every push. To publish changes from the private project repository, run from the project root:
+
+    git subtree push --prefix=website site main
