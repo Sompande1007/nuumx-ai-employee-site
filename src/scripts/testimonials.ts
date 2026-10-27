@@ -137,7 +137,8 @@ export function startTestimonials() {
   const syncMotion = () => {
     const rm = prefersReducedMotion();
     pp.hidden = rm;
-    hint.textContent = rm ? 'Drag or use ← → to explore' : 'Hover to pause · drag to explore';
+    const touch = matchMedia('(hover: none)').matches;
+    hint.textContent = touch ? 'Swipe to explore' : rm ? 'Drag or use ← → to explore' : 'Hover to pause · drag to explore';
   };
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', syncMotion);
   syncMotion();

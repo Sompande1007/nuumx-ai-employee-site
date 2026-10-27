@@ -50,7 +50,7 @@ img{max-width:100%}
    links get comfortable spacing. Desktop layouts are unchanged. */
 @media (pointer:coarse){
   /* :root raises specificity so these win over each section's own (later-loaded) sizes */
-  :root :is(.btn-link,.hw-call,.ind-call,.fc-wa,.faq-call,.faq-wa,.ts-pp){min-height:44px}
+  :root :is(.nav-cta,.btn-link,.hw-call,.ind-call,.fc-wa,.faq-call,.faq-wa,.ts-pp){min-height:44px}
   :root .ind-pp{width:44px;height:44px}
   :root .ft-brand a{display:inline-flex;align-items:center;min-height:44px}
   :root .ft-cols ul{gap:0}

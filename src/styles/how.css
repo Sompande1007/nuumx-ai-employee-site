@@ -166,38 +166,18 @@
 .hw-black{position:absolute;inset:0;z-index:28;background:#000;opacity:0;visibility:hidden}
 .hw-glint{position:absolute;inset:-20%;z-index:27;pointer-events:none;opacity:0;mix-blend-mode:soft-light;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%)}
 
-/* ---------- pinned desktop layout (added by the script) ---------- */
+/* ---------- pinned desktop layout (added by the script) ----------
+   The stage itself (watermark, chip, phone, callouts, hairline, dots) is styled in how-stage.css. */
 @media (min-width:1024px) and (min-height:640px) and (orientation:landscape){
-  .hw.is-pinned .hw-pin{height:520vh}
+  .hw.is-pinned .hw-pin{height:560vh}
   .hw.is-pinned .hw-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
   .hw.is-pinned .hw-bg{height:auto;inset:0}
-  .hw.is-pinned .hw-bg::after{background:linear-gradient(90deg,rgba(238,240,243,.99) 0%,rgba(238,240,243,.96) 48%,rgba(238,240,243,.5) 74%,rgba(238,240,243,.3) 100%)}
-  /* The phone's height comes from the viewport and its width from that height, so the grid always knows both. */
-  .hw.is-pinned .hw-frame{--ph:clamp(360px,calc(100dvh - 214px),640px);--pw:calc(var(--ph) * 332 / 684);height:100%;display:grid;grid-template-columns:minmax(0,1fr) var(--pw);grid-template-rows:minmax(0,1fr) auto;column-gap:clamp(48px,7vw,120px);padding:calc(64px + clamp(14px,3vh,32px)) clamp(32px,4vw,48px) clamp(14px,3vh,32px)}
-  .hw.is-pinned .hw-mbar,.hw.is-pinned .hw-time,.hw.is-pinned .hw-shot{display:none}
-  .hw.is-pinned .hw-text{grid-row:1;grid-column:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
-  .hw.is-pinned .hw-clock{display:flex;align-items:baseline;font-weight:500;font-size:clamp(60px,min(7.4vw,13vh),124px);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-  .hw-clock .hw-ap{font-size:.22em}
-  .hw.is-pinned .hw-steps{display:grid;margin-top:clamp(12px,2.6vh,28px)}
-  .hw.is-pinned .hw-step{grid-area:1/1;padding:0}
-  .hw.is-pinned .hw-step:not(:first-child){opacity:0}
-  .hw.is-pinned .hw-label{margin-top:0}
-  .hw.is-pinned .hw-title{margin-top:clamp(8px,1.4vh,12px);max-width:18ch;font-size:clamp(26px,min(2.9vw,5.2vh),44px);line-height:1.08;letter-spacing:-.035em}
-  .hw.is-pinned .hw-body{margin-top:clamp(8px,1.6vh,14px);max-width:44ch;font-size:clamp(15px,min(1.25vw,2.3vh),18px);line-height:1.55}
-  .hw.is-pinned .hw-mem{margin-top:clamp(12px,2.4vh,22px);font-size:14px}
-  .hw.is-pinned .hw-device{grid-row:1;grid-column:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:0}
-  .hw-phone-box{position:relative;flex:none;width:var(--pw);height:var(--ph)}
-  .hw-phone-box .hw-phone{position:absolute;left:0;top:0}
-  .hw-device .hw-sc ~ .hw-sc{visibility:hidden}
-  .hw-cap--device{font-size:13.5px}
-  .hw.is-pinned .hw-prog{grid-row:2;grid-column:1/-1;position:relative;display:grid;grid-template-columns:repeat(5,1fr);margin-top:clamp(10px,2vh,20px)}
-  .hw-track{position:absolute;left:0;right:0;top:0;height:1px;background:rgba(14,16,19,.14)}
-  .hw-fill{position:absolute;left:0;right:0;top:-.5px;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:0 50%}
-  .hw-pl{display:flex;align-items:center;gap:8px;padding-top:14px;font-size:13.5px;color:var(--faint);font-variant-numeric:tabular-nums;transition:color .4s}
-  .hw-pl .icon{font-size:16px}
-  .hw-pl.is-done{color:var(--muted)}
-  .hw-pl.is-on{color:var(--ink);font-weight:500}
+  .hw.is-pinned .hw-bg::after{background:radial-gradient(70% 80% at 50% 50%,rgba(238,240,243,.97) 30%,rgba(238,240,243,.78) 70%,rgba(238,240,243,.55) 100%)}
+  .hw.is-pinned .hw-frame{height:100%;max-width:none;padding:0}
+  .hw.is-pinned .hw-mbar{display:none}
 }
+/* While either stage is showing (it is aria-hidden), the step list stays readable to screen readers but out of sight */
+.hw:is(.is-pinned,.is-mpinned) .hw-text{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @media (prefers-reduced-transparency:reduce){
   .hw-banner,.hw-note{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}

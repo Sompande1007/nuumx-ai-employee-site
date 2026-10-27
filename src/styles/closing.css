@@ -50,6 +50,11 @@
 .faq-wa{border:1px solid rgba(14,16,19,.14);background:#fff;color:var(--ink)}
 .faq-call svg,.faq-wa svg{font-size:17px}
 .faq-wa svg{color:var(--wa)}
+/* Tablets in portrait: the ask card runs full width, text left and actions right, instead of a narrow card */
+@media (min-width:600px) and (max-width:1023px){
+  .faq-ask{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center}
+  .faq-ask-a{grid-column:2;grid-row:1 / span 2;margin-top:0;flex-wrap:nowrap}
+}
 .faq-list{border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(20px,3svh,26px) 0;list-style:none;cursor:pointer;font-size:clamp(17px,1.4vw,20px);font-weight:500;letter-spacing:-.02em;color:var(--ink)}

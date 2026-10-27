@@ -35,6 +35,7 @@
 .ind-pp[hidden]{display:none}
 
 @media (max-width:767px){
+  .ind-in{padding-top:64px}
   .ind-into{display:block}
   .ind-long{display:none}
 }
