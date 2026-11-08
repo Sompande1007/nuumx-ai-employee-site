@@ -15,6 +15,7 @@
 .drop .icon{font-size:19px}
 @media (hover:none),(max-width:767px),(prefers-reduced-motion:reduce){.trail{display:none}}
 .hero h1{font-weight:500;font-size:clamp(38px,4.6vw,66px);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.hero h1 :is(.l1,.l2){display:block;text-wrap:balance} /* one block per line: the long second line wraps evenly on phones */
 .hero h1 .l1{color:color-mix(in srgb,var(--faint) calc(var(--p,0) * 100%),var(--ink))}
 .hero h1 .l2{color:color-mix(in srgb,var(--ink) calc(var(--p,0) * 100%),var(--faint))}
 .hero .sub{font-size:16.5px;line-height:1.55;color:var(--muted);max-width:44ch;text-wrap:pretty}

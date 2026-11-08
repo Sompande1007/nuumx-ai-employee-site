@@ -1,0 +1,84 @@
+---
+// ROI calculator: four sliders (two more under "Fine-tune") on the left, a frosted receipt on the right that adds up
+// the month: recovered revenue + team time freed − plan = net gain, with return, payback and hours-saved chips.
+// On desktop the receipt stays in view while you work the sliders; on phones a small dark dock pinned to the bottom
+// shows the net gain while the sliders are on screen. Copy and maths live in src/data/roi.ts.
+import { Picture } from 'astro:assets';
+import '../../styles/roi.css';
+import ribs from '../../assets/how-ribs.webp';
+import { ROI as R, ROI_SLIDERS } from '../../data/roi';
+
+const main = ROI_SLIDERS.filter((s) => !('more' in s));
+const more = ROI_SLIDERS.filter((s) => 'more' in s);
+const pct = (s: (typeof ROI_SLIDERS)[number]) => `${((s.value - s.min) / (s.max - s.min)) * 100}%`;
+---
+<section class="roi ribbed" id="roi" aria-labelledby="roiTitle">
+  <div class="roi-in">
+    <p class="roi-eyebrow">{R.eyebrow}</p>
+    <header class="roi-head">
+      <h2 id="roiTitle">{R.title} <span>{R.titleSoft}</span></h2>
+      <p>{R.lede}</p>
+    </header>
+
+    <div class="roi-body">
+      <form class="roi-ins" onsubmit="return false" aria-label="Your business numbers">
+        {main.map((s) => (
+          <div class="roi-sl">
+            <div class="roi-sl-top"><label for={`roi-${s.key}`}>{s.label}</label><output for={`roi-${s.key}`} data-out={s.key}></output></div>
+            <input type="range" id={`roi-${s.key}`} data-key={s.key} data-fmt={s.fmt} min={s.min} max={s.max} step={s.step} value={s.value} style={`--p:${pct(s)}`} />
+            {'hint' in s && <small>{s.hint}</small>}
+          </div>
+        ))}
+        <details class="roi-more">
+          <summary><i aria-hidden="true">+</i>{R.fineTune}</summary>
+          <div>
+            {more.map((s) => (
+              <div class="roi-sl">
+                <div class="roi-sl-top"><label for={`roi-${s.key}`}>{s.label}</label><output for={`roi-${s.key}`} data-out={s.key}></output></div>
+                <input type="range" id={`roi-${s.key}`} data-key={s.key} data-fmt={s.fmt} min={s.min} max={s.max} step={s.step} value={s.value} style={`--p:${pct(s)}`} />
+                {'hint' in s && <small>{s.hint}</small>}
+              </div>
+            ))}
+          </div>
+        </details>
+      </form>
+
+      <div class="roi-rc">
+        <div class="roi-ribs" aria-hidden="true">
+          <Picture src={ribs} alt="" formats={['avif']} fallbackFormat="webp" widths={[640, 1040]} sizes="(min-width: 900px) 460px, 100vw" loading="lazy" class="roi-photo" />
+        </div>
+        <div class="roi-rc-in">
+          <div class="roi-rc-h"><span>{R.receipt.head}</span><b data-r="plan"></b></div>
+          <ul class="roi-rows">
+            <li><span>{R.receipt.rev}</span><b data-r="rev"></b></li>
+            <li><span>{R.receipt.staff}</span><b data-r="staff"></b></li>
+            <li class="minus"><span data-r="planRow"></span><b data-r="cost"></b></li>
+          </ul>
+          <div class="roi-net" aria-live="polite"><span>{R.receipt.net}</span><b data-r="net"></b></div>
+          <div class="roi-chips">
+            <span class="roi-chip ok"><b data-r="roi"></b> return</span>
+            <span class="roi-chip">Setup paid back in <b data-r="payback"></b></span>
+            <span class="roi-chip"><b data-r="hours"></b> saved</span>
+          </div>
+          <button class="btn-primary roi-cta" type="button" data-open="demo" data-track="roi_demo">{R.receipt.cta}</button>
+          <p class="roi-fine">{R.receipt.fine} <button class="roi-how" type="button" aria-expanded="false" aria-controls="roiCalc">{R.receipt.how}</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roi-calc" id="roiCalc"><div><div class="roi-calc-in">
+      <h3>{R.calcTitle}</h3>
+      <ul>{R.calc.map(([b, s]) => <li><b>{b}</b> {s}</li>)}</ul>
+    </div></div></div>
+  </div>
+
+  <div class="roi-dock" aria-hidden="true">
+    <div><span>{R.dock.label}</span><b data-r="net"></b></div>
+    <button type="button" tabindex="-1" data-track="roi_dock">{R.dock.cta}</button>
+  </div>
+</section>
+
+<script>
+  import { startRoi } from '../../scripts/roi';
+  startRoi();
+</script>

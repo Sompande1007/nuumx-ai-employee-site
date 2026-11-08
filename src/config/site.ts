@@ -9,8 +9,8 @@
 export const SITE = {
   name: 'nuumx AI Employee',
   description:
-    'Your chatbot, dialer, WhatsApp, inbox and CRM, replaced by one AI Employee that works every lead, day and night. Book a free demo.',
-  ogTitle: 'Five apps. One AI Employee.',
+    'Your chatbot, dialer, WhatsApp, inbox and CRM, rolled into one AI Employee that works every lead, day and night. Book a free demo.',
+  ogTitle: 'Five lead tools. Replaced by one AI Employee.',
   ogDescription:
     'One AI Employee that chats, calls, follows up on WhatsApp and email, and updates your CRM. Book a free demo.',
   // Only sections that exist, in page order. Add Pricing (and Testimonials, once real clients replace the samples)

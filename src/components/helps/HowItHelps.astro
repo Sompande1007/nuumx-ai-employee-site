@@ -9,7 +9,7 @@ import '../../styles/helps.css';
 import ribs from '../../assets/how-ribs.webp';
 import { HELPS as H } from '../../data/how-it-helps';
 
-const showRoiLink = false; // turn on once the ROI section (#roi) exists
+const showRoiLink = true; // links to the ROI section (#roi)
 ---
 <section class="hb ribbed" id="helps" aria-labelledby="hbTitle">
   <div class="hb-in">
@@ -44,7 +44,7 @@ const showRoiLink = false; // turn on once the ROI section (#roi) exists
             ))}
           </div>
         </div>
-        {/* "Calculate your ROI" links to the ROI section; hidden until that section is built (set showRoiLink below). */}
+        {/* "Calculate your ROI" links to the ROI section (showRoiLink above). */}
         {showRoiLink && <a class="hb-cta" href="#roi" data-track="helps_roi"><i><Icon name="material-symbols:arrow-forward" /></i>{H.cta}</a>}
       </div>
     </div>
