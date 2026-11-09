@@ -1,8 +1,9 @@
 // Testimonials (source: ../../content/testimonials.md).
 //
 // PLACEHOLDER DATA. Every client below is invented sample content, made so the section could be designed before real
-// clients were collected. While SAMPLE is true, each card shows a "Sample" tag and the section is left out of
-// production builds entirely (see Testimonials.astro), so these can never go live as real testimonials.
+// clients were collected. While SAMPLE is true the section still shows on the live site, but openly as examples: the
+// header switches to TESTIMONIALS_SAMPLE_HEAD (which says so), every card carries a "Sample" tag, and the screen-reader
+// list marks each one as a sample. They must never read as real testimonials.
 // To launch: replace every item with a real client (exact words, written permission), then set SAMPLE to false.
 
 export const SAMPLE = true;
@@ -32,6 +33,14 @@ export const TESTIMONIALS_HEAD = {
   titleSoft: 'In their words.',
   pill: '12 businesses · 8 industries',
   lede: 'Owners on what changed once every lead was worked to the end.'
+};
+
+// Header used while SAMPLE is true: says plainly that these are examples, and makes no claim about client numbers.
+export const TESTIMONIALS_SAMPLE_HEAD = {
+  title: 'What changes when every lead is worked.',
+  titleSoft: 'Sample stories.',
+  pill: 'Examples · real client stories coming soon',
+  lede: 'Illustrative examples of the work Riya does for businesses like yours. These are not real clients.'
 };
 
 export const TESTIMONIALS: Testimonial[] = [

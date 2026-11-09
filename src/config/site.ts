@@ -19,6 +19,7 @@ export const SITE = {
     { label: 'What it replaces', href: '#replaces', track: 'nav_replaces' },
     { label: 'How it works', href: '#how', track: 'nav_how' },
     { label: 'Benefits', href: '#helps', track: 'nav_helps' },
+    { label: 'ROI', href: '#roi', track: 'nav_roi' },
     { label: 'Industries', href: '#industries', track: 'nav_industries' },
     { label: 'FAQ', href: '#faq', track: 'nav_faq' }
   ]

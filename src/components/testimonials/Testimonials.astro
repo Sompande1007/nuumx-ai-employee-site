@@ -4,15 +4,14 @@
 // two quiet status chips, the quote and who said it. Hover or focus eases the loop to a stop; drag, flick or the arrow
 // keys move it. Screen readers get the same stories as a plain list. Copy lives in src/data/testimonials.ts.
 //
-// While the data is placeholder (SAMPLE), the section only renders in development, never in a production build.
+// While the data is placeholder (SAMPLE), the section says so openly: a sample header and a "Sample" tag on every card.
 import '../../styles/testimonials.css';
-import { SAMPLE, TESTIMONIALS as T, TESTIMONIALS_HEAD as H } from '../../data/testimonials';
+import { SAMPLE, TESTIMONIALS as T, TESTIMONIALS_HEAD, TESTIMONIALS_SAMPLE_HEAD } from '../../data/testimonials';
 
-const show = !SAMPLE || import.meta.env.DEV;
-if (SAMPLE && import.meta.env.PROD) console.warn('[testimonials] Sample data: section left out of this build. Add real clients and set SAMPLE = false.');
+const H = SAMPLE ? TESTIMONIALS_SAMPLE_HEAD : TESTIMONIALS_HEAD;
+if (SAMPLE && import.meta.env.PROD) console.warn('[testimonials] Sample data is live, labelled as samples. Add real clients and set SAMPLE = false.');
 const wave = [6, 12, 18, 9, 22, 14, 26, 11, 17, 24, 8, 19, 13, 25, 10, 16, 21, 7, 15, 20, 12, 23, 9, 14];
 ---
-{show && (
 <section class="ts ribbed" id="testimonials" aria-labelledby="tsTitle">
   <div class="ts-in">
     <header class="ts-head">
@@ -75,7 +74,6 @@ const wave = [6, 12, 18, 9, 22, 14, 26, 11, 17, 24, 8, 19, 13, 25, 10, 16, 21, 7
     <button type="button" class="ts-pp" id="tsPP" aria-pressed="false">Pause</button>
   </div>
 </section>
-)}
 
 <script>
   import { startTestimonials } from '../../scripts/testimonials';
