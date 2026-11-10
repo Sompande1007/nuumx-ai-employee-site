@@ -137,6 +137,11 @@ function landsAt(p: Phone, to: number, fwd: boolean, overnight: boolean) {
   return !fwd ? 0.1 : overnight ? 0.5 : p.banners.some((b) => b.dataset.for === String(to)) ? 0.75 : 0.15;
 }
 
+/** The channel icons above the phone: earlier channels done, channel i current. */
+function lightJourney(icons: HTMLElement[], i: number) {
+  icons.forEach((el, k) => { el.classList.toggle('is-on', k === i); el.classList.toggle('is-done', k < i); });
+}
+
 export function startHowItWorks() {
   const found = document.getElementById('how');
   if (!found) return;
@@ -250,7 +255,7 @@ export function startHowItWorks() {
   // The phone is the main event; everything else follows it, gently. Each change is one sequence at a fixed speed:
   //   1. the phone plays its moment (notification then app; the call from the top; sleep and wake overnight), then one glint
   //   2. as the new screen lands, the watermark time rolls slowly to the new time with a slight dip in brightness
-  //      (overnight it fast-forwards while the phone sleeps), and the chip and dots change
+  //      (overnight it fast-forwards while the phone sleeps), and the channel icons above the phone move on
   //   3. once the phone has settled, the callout rises in and a hairline draws from it to the edge of the phone, level with
   //      the part of the screen it describes, which gets a soft mist ring
   // Scrolling back uses simple cross-fades. Reduced motion swaps frames instantly.
@@ -258,7 +263,7 @@ export function startHowItWorks() {
     const stage = q('.hx-stage'), box = q('.hx-phone-box'), phone = q('.hx-phone-box .hw-phone'), odoEl = q('.hx-odo');
     if (!stage || !box || !phone || !odoEl) return;
     const ph = phoneParts(box);
-    const notes = qa('.hx-note', stage), chips = qa('.hx-chip span', stage), dots = qa('.hx-dots i', stage);
+    const notes = qa('.hx-note', stage), journey = qa('.hx-jr i', stage);
     const line = stage.querySelector<SVGSVGElement>('.hx-line'), path = line?.querySelector('path'), dot = line?.querySelector('circle');
     if (!ph || notes.length !== 5 || !line || !path || !dot) return;
     const { screens, banners, black, glint } = ph;
@@ -272,7 +277,7 @@ export function startHowItWorks() {
       gsap.fromTo(odoEl, { opacity: 0.055 }, { opacity: 0.032, duration: 0.5, ease: 'sine.inOut', yoyo: true, repeat: 1, overwrite: 'auto' });
       if (overnight) odo.fastForward(minutes[i], 1.6); else odo.set(minutes[i], 1.4);
     };
-    const showPassive = (i: number) => [chips, dots].forEach((list) => list.forEach((el, k) => el.classList.toggle('is-on', k === i)));
+    const showPassive = (i: number) => lightJourney(journey, i);
 
     /** Place callout i level with its target and lay the hairline out from beside its title to the phone's edge. */
     const layoutLine = (i: number) => {
@@ -368,18 +373,18 @@ export function startHowItWorks() {
   }
 
   /* ---------------- phones and tablets in portrait, pinned ---------------- */
-  // The desktop stage, stacked: progress bar and time chip on top, the phone, then one short note below it.
-  // Each change: the old note and ring leave, the phone plays its moment, the progress and chip change as the new screen
+  // The desktop stage, stacked: channel icons and time chip on top, the phone, then one short note below it.
+  // Each change: the old note and ring leave, the phone plays its moment, the icons and chip change as the new screen
   // lands (the chip's time rolls; overnight it fast-forwards while the phone sleeps), then the note rises and the ring
   // lands. A change that arrives mid-animation waits for the current one to finish, so a quick flick never skips a beat.
   // The Book / WhatsApp bar steps aside while the phone is pinned (html.how-pinned, see MobileBar).
   function setupPortrait() {
     const stage = q('.hx-stage'), box = q('.hx-phone-box'), phone = q('.hx-phone-box .hw-phone');
-    const odoEl = q('.hm-odo'), chWrap = q('.hm-ch');
-    if (!stage || !box || !phone || !odoEl || !chWrap) return;
+    const odoEl = q('.hm-odo');
+    if (!stage || !box || !phone || !odoEl) return;
     const ph = phoneParts(box);
-    const notes = qa('.hx-note', stage), segs = qa('.hm-prog i', stage), channels = qa('.hm-ch span', stage);
-    if (!ph || notes.length !== 5 || segs.length !== 5 || channels.length !== 5) return;
+    const notes = qa('.hx-note', stage), journey = qa('.hx-jr i', stage);
+    if (!ph || notes.length !== 5 || journey.length !== 5) return;
     const targets = notes.map((n, i) => ph.screens[i].querySelector<HTMLElement>(n.dataset.target!) || ph.screens[i]);
 
     root.classList.add('is-mpinned');
@@ -391,11 +396,7 @@ export function startHowItWorks() {
     odoEl.innerHTML = ODO_HTML;
     const odo = makeOdometer(odoEl);
 
-    const showPassive = (i: number) => {
-      segs.forEach((s, j) => { s.classList.toggle('is-on', j === i); s.classList.toggle('is-done', j < i); });
-      channels.forEach((c, j) => c.classList.toggle('is-on', j === i));
-      chWrap.style.width = `${channels[i].offsetWidth}px`; // the chip hugs the current channel
-    };
+    const showPassive = (i: number) => lightJourney(journey, i);
 
     let cur = -1, pending = -1;
     let tl: gsap.core.Timeline | null = null;
@@ -459,9 +460,7 @@ export function startHowItWorks() {
       root.classList.remove('is-mpinned');
       gsap.set([...ph.screens, ...ph.banners, ...notes, ph.black, ph.glint, phone], { clearProps: 'all' });
       targets.forEach((t) => t.classList.remove('hx-hl'));
-      segs.forEach((s) => s.classList.remove('is-on', 'is-done'));
-      channels.forEach((c) => c.classList.remove('is-on'));
-      chWrap.style.width = '';
+      lightJourney(journey, 0);
       odoEl.innerHTML = '';
     };
   }

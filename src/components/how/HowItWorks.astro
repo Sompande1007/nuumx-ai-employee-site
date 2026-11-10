@@ -2,10 +2,11 @@
 // How it works: one lead (Priya, from the hero) followed through five channels, one moment at a time.
 // Desktop and landscape tablets (wide and tall enough): the stage pins while you scroll. The phone is the hero, centred, and
 // plays its moments (notification then app, the call from the top, sleeping overnight and waking on Rahul's lock screen).
-// Behind it the time rolls as a huge faint odometer; a chip above names the time and channel; after the phone settles, one
-// callout per step draws a hairline to the edge of the phone, level with the part of the screen it describes.
-// Phones and tablets in portrait: the same stage, stacked. The phone pins under a progress bar and a time chip, plays the
-// same moments, and a short note below it changes with each step.
+// Behind it the time rolls as a huge faint odometer; above it, the five channels as a row of icons light up one by one;
+// after the phone settles, one callout per step (with a badge naming the channel) draws a hairline to the edge of the
+// phone, level with the part of the screen it describes.
+// Phones and tablets in portrait: the same stage, stacked. The phone pins under the channel icons and a time chip, plays
+// the same moments, and a short note below it changes with each step.
 // Landscape phones, short screens, reduced motion and no-JS: the same steps as a plain list, each with its own phone moment.
 // Proof and buttons follow in normal flow. Copy lives in src/data/how-it-works.ts; motion in src/scripts/how-it-works.ts.
 import { Icon } from 'astro-icon/components';
@@ -69,11 +70,12 @@ const steps = HOW.steps.map((s) => ({ ...s, ...clockParts(s.minutes) }));
         <div class="hx-wm" aria-hidden="true"><span class="hx-odo"></span></div>
 
         <div class="hx-stage" aria-hidden="true">
-          <div class="hm-prog">{steps.map(() => <i></i>)}</div>
-          <p class="hm-chip"><span class="hm-odo"></span><span class="hm-dot">·</span><span class="hm-ch">{steps.map((s) => <span>{s.channel}</span>)}</span></p>
-          <p class="hx-chip">
-            {steps.map((s, i) => <span class:list={{ 'is-on': i === 0 }}>{s.time} {s.ap.toUpperCase()} · {s.channel.toUpperCase()}</span>)}
-          </p>
+          <div class="hx-jr">
+            {steps.map((s, i) => (
+              <>{i > 0 && <b></b>}<i class:list={{ 'is-on': i === 0 }} style={`--c:${s.tint}`}><Icon name={`material-symbols:${s.icon}`} /></i></>
+            ))}
+          </div>
+          <p class="hm-chip"><span class="hm-odo"></span></p>
           <div class="hx-phone-box">
             <div class="hw-phone">
               <div class="hw-scr">
@@ -95,14 +97,14 @@ const steps = HOW.steps.map((s) => ({ ...s, ...clockParts(s.minutes) }));
           <ol class="hx-notes">
             {steps.map((s, i) => (
               <li class:list={['hx-note', i % 2 ? 'hx-r' : 'hx-l']} data-target={s.target}>
-                <p class="hx-step"><b>{s.n} {s.key}</b> · {s.channel}<span class="hx-step-t"> · {s.time} {s.ap}</span></p>
+                <p class="hx-step"><b>{s.n} {s.key}</b><span class="hx-step-t"> · {s.time} {s.ap}</span></p>
+                <p class="hx-badge"><span style={`--c:${s.tint}`}><Icon name={`material-symbols:${s.icon}`} /></span>{s.channel}</p>
                 <h3>{s.title}</h3>
                 <p class="hx-txt">{s.note}</p>
               </li>
             ))}
           </ol>
           <svg class="hx-line"><path d="" /><circle r="4.5" cx="-10" cy="-10" /></svg>
-          <div class="hx-dots">{steps.map((_, i) => <i class:list={{ 'is-on': i === 0 }}></i>)}</div>
         </div>
       </div>
     </div>

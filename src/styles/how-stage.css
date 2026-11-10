@@ -3,7 +3,19 @@
    Phones and tablets in portrait: shown once the script adds .is-mpinned (see the block at the end).
    Phone styles (hw-phone, hw-scr, hw-sc, hw-banner...) come from how.css. */
 
-.hx-wm,.hx-stage,.hm-prog,.hm-chip{display:none}
+.hx-wm,.hx-stage,.hm-chip{display:none}
+
+/* the five channels as icons, joined by a line: done ones outlined in ink, the current one filled in its colour (--c),
+   the rest faint. The script moves .is-on / .is-done; the badge in each callout names the channel. */
+.hx-jr{display:flex;align-items:center;margin-bottom:4px}
+.hx-jr i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:15px;color:#9AA0A9;background:rgba(255,255,255,.8);border:1px solid rgba(14,16,19,.12);
+  transition:color .4s,background-color .4s,border-color .4s,box-shadow .4s,transform .5s var(--ease-out)}
+.hx-jr i.is-done{color:var(--ink);background:#fff;border-color:var(--ink)}
+.hx-jr i.is-on{color:#fff;background:var(--c);border-color:transparent;transform:scale(1.2);box-shadow:0 8px 18px -8px var(--c)}
+.hx-jr b{flex:none;width:24px;height:1.5px;background:rgba(14,16,19,.15);transition:background-color .4s}
+.hx-jr b:has(+ i:is(.is-on,.is-done)){background:var(--ink)}
+.hx-badge{display:inline-flex;align-items:center;gap:10px;margin:14px 0 0;padding:4px 16px 4px 4px;border-radius:999px;background:#fff;border:1px solid rgba(14,16,19,.1);box-shadow:0 8px 20px -12px rgba(30,40,58,.4);font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+.hx-badge span{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-size:17px}
 
 @media (min-width:1024px) and (min-height:640px) and (orientation:landscape){
   /* the watermark clock: huge, faint, centred behind the phone; its digits roll like a quiet odometer */
@@ -13,10 +25,6 @@
 
   .hw.is-pinned .hx-stage{--ph:clamp(420px,calc(100dvh - 210px),660px);--hs:calc(var(--ph) / 684px);
     position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(64px + 4vh) 0 3vh}
-  .hx-chip{display:grid;margin:0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11.5px;letter-spacing:.06em;color:var(--ink-2)}
-  .hx-chip span{grid-area:1/1;justify-self:center;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid rgba(14,16,19,.08);white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
-  .hx-chip span.is-on{opacity:1;transform:none}
-
   .hx-phone-box{position:relative;flex:none;width:calc(332px * var(--hs));height:calc(684px * var(--hs))}
   .hx-phone-box .hw-phone{--ps:var(--hs);position:absolute;left:0;top:0}
 
@@ -38,9 +46,6 @@
   .hx-phone-box :is(.hw-mb,.hw-cc,.hw-slots,.hw-inv,.hw-note){transition:box-shadow .7s var(--ease-out)}
   .hx-phone-box .hx-hl{box-shadow:0 0 0 2px rgba(90,106,158,.55),0 0 0 7px rgba(90,106,158,.12)}
 
-  .hx-dots{display:flex;gap:8px;margin-top:4px}
-  .hx-dots i{width:6px;height:6px;border-radius:50%;background:rgba(14,16,19,.18);transition:background .3s,width .3s}
-  .hx-dots i.is-on{width:22px;border-radius:3px;background:var(--ink)}
 }
 
 /* ---------- phones and tablets in portrait: the stage stacked, phone pinned ----------
@@ -55,23 +60,17 @@
   .hw.is-mpinned .hw-mbar{display:none}
 
   /* --nav-h is the site header's measured height (taller on touch screens), set by the script. The phone takes what is
-     left after the header, progress, chip and the tallest note (about 270px), at most 59% of the screen */
-  .hw.is-mpinned .hx-stage{--ph:min(59svh,calc(100svh - var(--nav-h,52px) - 270px),680px,calc((100vw - 64px) * 684 / 332));--hs:calc(var(--ph) / 684px);
+     left after the header, channel icons, chip and the tallest note with its badge (about 306px), at most 59% of the screen */
+  .hw.is-mpinned .hx-stage{--ph:min(59svh,calc(100svh - var(--nav-h,52px) - 306px),680px,calc((100vw - 64px) * 684 / 332));--hs:calc(var(--ph) / 684px);
     position:relative;z-index:2;height:100%;padding-top:var(--nav-h,calc(52px + env(safe-area-inset-top,0px)));display:flex;flex-direction:column;align-items:center}
-  .hw.is-mpinned :is(.hx-chip,.hx-line,.hx-dots,.hx-step-t){display:none}
+  .hw.is-mpinned :is(.hx-line,.hx-step-t){display:none}
 
-  .hw.is-mpinned .hm-prog{align-self:stretch;display:flex;gap:5px;padding:14px clamp(16px,4vw,48px) 0}
-  .hm-prog i{flex:1;height:3px;border-radius:2px;background:rgba(14,16,19,.12);transition:background .4s}
-  .hm-prog i.is-done{background:var(--muted)}
-  .hm-prog i.is-on{background:var(--ink)}
+  .hw.is-mpinned .hx-jr{width:min(100% - 2 * clamp(16px,4vw,48px),520px);margin:16px 0 0}
+  .hw.is-mpinned .hx-jr b{flex:1;width:auto}
 
   .hw.is-mpinned .hm-chip{display:flex;align-items:center;gap:7px;margin-top:14px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.86);border:1px solid rgba(14,16,19,.08);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.06em;color:var(--ink-2);white-space:nowrap}
   .hm-odo{display:inline-flex;align-items:baseline;height:1.25em;line-height:1.25}
   .hm-odo .hw-ap{display:inline-grid;margin-left:.45em;font-size:1em;text-transform:uppercase;color:var(--ink-2)}
-  .hm-dot{opacity:.5}
-  .hm-ch{display:inline-grid;text-transform:uppercase;transition:width .5s var(--ease-out)}
-  .hm-ch span{grid-area:1/1;justify-self:start;opacity:0;transition:opacity .35s}
-  .hm-ch span.is-on{opacity:1;transition-delay:.12s}
 
   .hw.is-mpinned .hx-phone-box{position:relative;flex:none;width:calc(332px * var(--hs));height:calc(684px * var(--hs));margin-top:16px}
   .hw.is-mpinned .hx-phone-box .hw-phone{--ps:var(--hs);position:absolute;left:0;top:0}
@@ -84,6 +83,8 @@
   .hw.is-mpinned .hx-note{grid-area:1/1;text-align:center;visibility:hidden}
   .hw.is-mpinned .hx-step{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
   .hw.is-mpinned .hx-step b{font-weight:500;color:var(--ink)}
+  .hw.is-mpinned .hx-badge{margin-top:10px;gap:8px;padding:3px 14px 3px 3px;font-size:15px}
+  .hw.is-mpinned .hx-badge span{width:26px;height:26px;font-size:15px}
   .hw.is-mpinned .hx-note h3{margin:7px auto 0;max-width:19ch;font-weight:500;font-size:23px;line-height:1.14;letter-spacing:-.03em;text-wrap:balance}
   .hw.is-mpinned .hx-txt{margin:7px auto 0;max-width:34ch;font-size:15px;line-height:1.5;color:var(--muted);text-wrap:pretty}
 }
