@@ -19,8 +19,8 @@ export type HowStep = {
 };
 
 export const HOW = {
-  title: 'One lead. Five channels.',
-  titleSoft: 'One memory.',
+  title: 'One enquiry, five channels,',
+  titleSoft: 'one booked visit.',
   lede: 'One enquiry, start to finish: a late-night chat on your website that becomes a booked site visit by morning. Nia carries every detail from one channel to the next, so your customer never has to repeat herself.',
   steps: [
     {

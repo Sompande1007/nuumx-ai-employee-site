@@ -5,7 +5,7 @@
  * A soft mist band sweeps across the visible days. Each busywork block it reaches lights up, lifts out and flies into
  * Nia's panel, landing on its task row, which glows and counts up (as does the weekly total). Blocks in days hidden on
  * phones still count. Then .is-free swaps the week to "The same week, with Nia", the white blocks of selling time grow
- * in, "It frees them." whitens and the summary appears. Reduced motion: the final state straight away.
+ * in, "It frees them to close deals." whitens and the summary appears. Reduced motion: the final state straight away.
  */
 import { gsap, ScrollTrigger, prefersReducedMotion } from './motion/scroll';
 
@@ -33,7 +33,8 @@ export function startFrees() {
     tl?.kill(); tl = null;
     const busy = fr.querySelectorAll<HTMLElement>('.fr-busy'), human = fr.querySelectorAll<HTMLElement>('.fr-human');
     gsap.killTweensOf([...busy, ...human, ...rows.values(), sweep]);
-    gsap.set([...busy, ...human, ...rows.values()], { clearProps: 'all' });
+    // only what the animation itself sets: each block's place on the calendar (--s, --d) is an inline style too
+    gsap.set([...busy, ...human, ...rows.values()], { clearProps: 'transform,opacity,visibility,backgroundColor,borderColor' });
     gsap.set(sweep, { clearProps: 'opacity,left,width' });
     rows.forEach((r) => { r.classList.remove('hit'); r.querySelector('.fr-n')!.textContent = '0'; });
     total.textContent = '0';

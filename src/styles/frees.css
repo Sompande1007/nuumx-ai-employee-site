@@ -1,15 +1,15 @@
 /* "It frees them": a calendar defrag in a dark section. Every class is prefixed fr-.
    Blocks sit at top: --s hours and are --d hours tall, using --ph (pixels per hour) set on .fr-grid.
    .is-free (added once the busywork has gone) swaps the week to its "after" state, shows the human blocks, whitens
-   "It frees them." and shows the summary. */
+   "It frees them to close deals." and shows the summary. */
 
 .fr{position:relative;isolation:isolate;overflow:hidden;color:#fff;background:radial-gradient(80% 70% at 50% 40%,#1C2233 0%,#0E1013 72%);scroll-margin-top:72px}
 .fr::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0,rgba(255,255,255,0) 9px,rgba(0,0,0,.2) 17px,rgba(0,0,0,0) 18px);
   -webkit-mask-image:radial-gradient(110% 90% at 50% 45%,transparent 25%,#000 85%);mask-image:radial-gradient(110% 90% at 50% 45%,transparent 25%,#000 85%)}
 .fr-in{max-width:1240px;margin:0 auto;padding:clamp(80px,12svh,140px) clamp(16px,4vw,48px) clamp(72px,11svh,130px)}
-.fr h2{text-align:center;font-weight:500;font-size:clamp(34px,min(4.6vw,7.6svh),64px);line-height:1.04;letter-spacing:-.05em}
-.fr-soft{display:block;color:#4D5360;transition:color 1.2s var(--ease-out)}
+.fr h2{text-align:center;font-weight:500;font-size:clamp(34px,min(4.6vw,7.6svh),64px);line-height:1.04;letter-spacing:-.05em;text-wrap:balance}
+.fr-soft{display:block;text-wrap:balance;color:#4D5360;transition:color 1.2s var(--ease-out)}
 .fr.is-free .fr-soft{color:#fff}
 
 .fr-board{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(16px,2vw,24px);margin-top:clamp(36px,6svh,64px);align-items:stretch}
