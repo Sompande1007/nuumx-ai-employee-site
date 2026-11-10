@@ -1,12 +1,13 @@
 /**
- * "It frees them": the calendar defrag. Plays once when the board scrolls into view.
+ * "It frees them": the calendar defrag. Plays every time the board comes on screen: once it has scrolled fully out of
+ * view (either way), the week quietly resets to its busy "before" state, ready to play again on the way back.
  *
  * A soft mist band sweeps across the visible days. Each busywork block it reaches lights up, lifts out and flies into
  * Nia's panel, landing on its task row, which glows and counts up (as does the weekly total). Blocks in days hidden on
  * phones still count. Then .is-free swaps the week to "The same week, with Nia", the white blocks of selling time grow
  * in, "It frees them." whitens and the summary appears. Reduced motion: the final state straight away.
  */
-import { gsap, prefersReducedMotion } from './motion/scroll';
+import { gsap, ScrollTrigger, prefersReducedMotion } from './motion/scroll';
 
 export function startFrees() {
   const fr = document.getElementById('frees');
@@ -26,7 +27,23 @@ export function startFrees() {
   };
   if (prefersReducedMotion()) { finish(); return; }
 
+  let tl: gsap.core.Timeline | null = null;
+  /** Back to the busy week, with nothing counted. Only runs while the board is off screen. */
+  const reset = () => {
+    tl?.kill(); tl = null;
+    const busy = fr.querySelectorAll<HTMLElement>('.fr-busy'), human = fr.querySelectorAll<HTMLElement>('.fr-human');
+    gsap.killTweensOf([...busy, ...human, ...rows.values(), sweep]);
+    gsap.set([...busy, ...human, ...rows.values()], { clearProps: 'all' });
+    gsap.set(sweep, { clearProps: 'opacity,left,width' });
+    rows.forEach((r) => { r.classList.remove('hit'); r.querySelector('.fr-n')!.textContent = '0'; });
+    total.textContent = '0';
+    wt.textContent = wt.dataset.before!;
+    ws.textContent = ws.dataset.before!;
+    fr.classList.remove('is-free');
+  };
+
   const play = () => {
+    reset();
     const counts: Record<string, number> = {};
     let n = 0;
     const bump = (t: string) => {
@@ -39,14 +56,14 @@ export function startFrees() {
     };
     const cols = Array.from(grid.querySelectorAll<HTMLElement>('.fr-col')).filter((c) => c.offsetParent);
     const STEP = 0.75;
-    const tl = gsap.timeline();
-    tl.set(sweep, { opacity: 1, left: cols[0].offsetLeft - 10, width: cols[0].offsetWidth + 20 });
+    const run = (tl = gsap.timeline());
+    run.set(sweep, { opacity: 1, left: cols[0].offsetLeft - 10, width: cols[0].offsetWidth + 20 });
     cols.forEach((col, ci) => {
       const at = 0.35 + ci * STEP;
-      if (ci) tl.to(sweep, { left: col.offsetLeft - 10, duration: 0.5, ease: 'power2.inOut' }, at - 0.3);
+      if (ci) run.to(sweep, { left: col.offsetLeft - 10, duration: 0.5, ease: 'power2.inOut' }, at - 0.3);
       Array.from(col.querySelectorAll<HTMLElement>('.fr-busy')).forEach((b, bi) => {
         const t = b.dataset.t!, row = rows.get(t)!, at2 = at + bi * 0.08;
-        tl.to(b, { scale: 1.04, backgroundColor: 'rgba(140,154,200,.35)', borderColor: 'rgba(160,172,214,.6)', duration: 0.18, ease: 'power2.out' }, at2)
+        run.to(b, { scale: 1.04, backgroundColor: 'rgba(140,154,200,.35)', borderColor: 'rgba(160,172,214,.6)', duration: 0.18, ease: 'power2.out' }, at2)
           .to(b, {
             x: () => { const a = b.getBoundingClientRect(), r = row.getBoundingClientRect(); return r.left + r.width * 0.55 - (a.left + a.width / 2) + (gsap.getProperty(b, 'x') as number); },
             y: () => { const a = b.getBoundingClientRect(), r = row.getBoundingClientRect(); return r.top + r.height / 2 - (a.top + a.height / 2) + (gsap.getProperty(b, 'y') as number); },
@@ -56,7 +73,7 @@ export function startFrees() {
       });
     });
     const end = 0.35 + cols.length * STEP + 0.6;
-    tl.to(sweep, { opacity: 0, duration: 0.4 }, end - 0.3)
+    run.to(sweep, { opacity: 0, duration: 0.4 }, end - 0.3)
       .add(() => {
         // days hidden on phones still count
         grid.querySelectorAll<HTMLElement>('.fr-col').forEach((c) => { if (!c.offsetParent) c.querySelectorAll<HTMLElement>('.fr-busy').forEach((b) => bump(b.dataset.t!)); });
@@ -67,5 +84,7 @@ export function startFrees() {
       }, end);
   };
 
-  gsap.timeline({ scrollTrigger: { trigger: board, start: 'top 70%', once: true, onEnter: play } });
+  // play on the way in from either direction; reset only once the board is completely off screen
+  ScrollTrigger.create({ trigger: board, start: 'top 70%', end: 'bottom 30%', onEnter: play, onEnterBack: play });
+  ScrollTrigger.create({ trigger: board, start: 'top bottom', end: 'bottom top', onLeave: reset, onLeaveBack: reset });
 }
