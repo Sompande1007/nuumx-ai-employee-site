@@ -21,19 +21,19 @@ export type HowStep = {
 export const HOW = {
   title: 'One lead. Five channels.',
   titleSoft: 'One memory.',
-  lede: 'One enquiry, start to finish: a late-night chat on your website that becomes a booked site visit by morning. Riya carries every detail from one channel to the next, so your customer never has to repeat herself.',
+  lede: 'One enquiry, start to finish: a late-night chat on your website that becomes a booked site visit by morning. Nia carries every detail from one channel to the next, so your customer never has to repeat herself.',
   steps: [
     {
       n: '01', key: 'Capture', channel: 'Website chat', icon: 'chat-outline', tint: '#475569', minutes: 23 * 60 + 40,
       title: 'Answers in seconds.',
-      body: 'Priya asks what a 3BHK would cost. Riya answers from your own price list, then takes her name, number and what she needs.',
+      body: 'Priya asks what a 3BHK would cost. Nia answers from your own price list, then takes her name, number and what she needs.',
       remembers: '3BHK interiors, Pune', viewer: 'What Priya sees',
       note: 'Answers from your own price list, then takes her name and number.', target: '.hw-mb--them'
     },
     {
       n: '02', key: 'Qualify', channel: 'Phone call', icon: 'call-outline', tint: '#16A34A', minutes: 23 * 60 + 42,
       title: 'Calls back in two minutes, already briefed.',
-      body: 'No "how can I help you?". Riya opens with Priya\'s own question, then confirms budget, timeline and style in a natural voice, in any of 16+ languages. Hot leads can be transferred to your team mid-call.',
+      body: 'No "how can I help you?". Nia opens with Priya\'s own question, then confirms budget, timeline and style in a natural voice, in any of 16+ languages. Hot leads can be transferred to your team mid-call.',
       remembers: '₹6-8 lakh, moving in by March', viewer: 'What Priya sees',
       note: 'Opens with her own question, then confirms budget, timeline and style.', target: '.hw-cc'
     },
@@ -59,7 +59,7 @@ export const HOW = {
       note: 'Rahul starts with the whole story, already logged in your CRM.', target: '.hw-note'
     }
   ] satisfies HowStep[],
-  afterwards: 'After the visit, Riya sends the proposal the same evening and follows up on day 2 and day 5, until Priya is ready to decide.',
+  afterwards: 'After the visit, Nia sends the proposal the same evening and follows up on day 2 and day 5, until Priya is ready to decide.',
   stats: [
     { big: '2 min', label: 'First call back, at any hour' },
     { big: '0', label: 'Follow-ups your team has to remember' },

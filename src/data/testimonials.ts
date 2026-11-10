@@ -40,7 +40,7 @@ export const TESTIMONIALS_SAMPLE_HEAD = {
   title: 'What changes when every lead is worked.',
   titleSoft: 'Sample stories.',
   pill: 'Examples · real client stories coming soon',
-  lede: 'Illustrative examples of the work Riya does for businesses like yours. These are not real clients.'
+  lede: 'Illustrative examples of the work Nia does for businesses like yours. These are not real clients.'
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -55,7 +55,7 @@ export const TESTIMONIALS: Testimonial[] = [
   { industry: 'Education', result: '−30%', resultLabel: 'counselling no-shows',
     receipt: { kind: 'call', length: '6 min', time: '9:18 pm', note: 'Fees, scholarships and intake dates answered.' },
     chips: [['mist', 'Hindi + English'], ['sage', 'Slot booked']],
-    quote: '“Riya answers the same ten questions and books the slot.”', role: 'Admissions director', business: 'Business school · Mumbai', initials: 'BS' },
+    quote: '“Nia answers the same ten questions and books the slot.”', role: 'Admissions director', business: 'Business school · Mumbai', initials: 'BS' },
   { industry: 'Clinics', result: '3 h', resultLabel: 'a day back for the front desk',
     receipt: { kind: 'cal', time: 'Mon 6:02 pm', month: 'TUE', day: '14', title: 'Physiotherapy session', when: 'Tue 9:00 am · reminder sent' },
     chips: [['sage', 'Reminder sent'], ['mist', 'Rescheduled']],
@@ -75,7 +75,7 @@ export const TESTIMONIALS: Testimonial[] = [
   { industry: 'Real estate', result: '11 pm', resultLabel: 'when most visits now get booked',
     receipt: { kind: 'cal', time: 'Sat 11:04 pm', month: 'SUN', day: '9', title: 'Site visit · Villa 3B', when: 'Sun 11:00 am · directions on WhatsApp' },
     chips: [['mist', 'Booked at 11 pm'], ['sage', 'Visit booked']],
-    quote: '“Buyers browse late at night. Riya is the only one awake.”', role: 'Director', business: 'Villa projects · Goa', initials: 'VP' },
+    quote: '“Buyers browse late at night. Nia is the only one awake.”', role: 'Director', business: 'Villa projects · Goa', initials: 'VP' },
   { industry: 'Education', result: '1,200', resultLabel: 'parent enquiries answered in admission week',
     receipt: { kind: 'crm', time: 'Admission week', from: 'Missed call', to: 'Called back', bar: { pct: 100, note: '1,200 of 1,200 parents called back' } },
     chips: [['mist', 'Every parent called']],
@@ -83,7 +83,7 @@ export const TESTIMONIALS: Testimonial[] = [
   { industry: 'Coaching', result: '2', resultLabel: 'languages in one call, as students switch',
     receipt: { kind: 'call', length: '5 min', time: '8:40 pm', note: 'Switches Hindi ↔ English mid-sentence, like the student.' },
     chips: [['mist', 'Hindi'], ['mist', 'English'], ['sage', 'Demo class booked']],
-    quote: '“Students switch languages mid-call. Riya keeps up.”', role: 'Founder', business: 'Test-prep institute · Kota', initials: 'TP' },
+    quote: '“Students switch languages mid-call. Nia keeps up.”', role: 'Founder', business: 'Test-prep institute · Kota', initials: 'TP' },
   { industry: 'Dental', result: '−40%', resultLabel: 'missed appointments',
     receipt: { kind: 'wa', time: 'Day before', msgs: [{ text: 'Reminder: your appointment is tomorrow at 10:30 am. Reply 1 to confirm.' }, { text: '1', mine: true, stamp: '6:15 pm ✓✓' }] },
     chips: [['sage', 'Confirmed'], ['mist', 'Reminder sent']],

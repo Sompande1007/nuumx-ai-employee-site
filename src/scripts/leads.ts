@@ -1,5 +1,5 @@
 /**
- * Lead capture for "Book a free demo" and "Get a call from Riya".
+ * Lead capture for "Book a free demo" and "Get a call from Nia".
  * Any element with data-open="demo" or data-open="call" opens the dialog.
  * With an endpoint set in src/config/site.ts the lead is posted there; without one, the visitor
  * continues on WhatsApp with their details pre-filled, so they are never told something happened when it did not.
@@ -10,7 +10,7 @@ import { track, campaignSource } from './analytics';
 type Mode = 'demo' | 'call';
 const COPY: Record<Mode, { title: string; lede: string; btn: string; fine: string; company: boolean }> = {
   demo: { title: 'Book your free demo', lede: '30 minutes on your own use case. No obligation.', btn: 'Book my demo', fine: 'We only use your number to arrange your demo.', company: true },
-  call: { title: 'Get a call from Riya', lede: 'Enter your number and Riya will call you, the way she would call your customers.', btn: 'Call me', fine: 'One demo call. We will not add you to any list.', company: false }
+  call: { title: 'Get a call from Nia', lede: 'Enter your number and Nia will call you, the way she would call your customers.', btn: 'Call me', fine: 'One demo call. We will not add you to any list.', company: false }
 };
 
 export const waNumber = String(LEADS.whatsapp || '').replace(/\D/g, '');
@@ -73,7 +73,7 @@ export function initLeadDialog() {
     form.hidden = true; done.hidden = false; $('doneActs').innerHTML = '';
     const first = lead.name.split(' ')[0];
     if (sent && mode === 'call' && LEADS.callMeEndpoint) {
-      $('doneTitle').textContent = 'Riya is calling you';
+      $('doneTitle').textContent = 'Nia is calling you';
       $('doneText').textContent = `Thanks, ${first}. Keep your phone close; the call comes in within a minute.`;
     } else if (sent) {
       $('doneTitle').textContent = 'Request received';
@@ -81,9 +81,9 @@ export function initLeadDialog() {
       if (LEADS.bookingUrl) addButton('btn-primary', 'Pick a time on our calendar', LEADS.bookingUrl);
     } else {
       $('doneTitle').textContent = 'One last step';
-      $('doneText').textContent = `Send these details to our team on WhatsApp and we will confirm ${mode === 'demo' ? 'your demo slot' : 'a call from Riya'} there.`;
+      $('doneText').textContent = `Send these details to our team on WhatsApp and we will confirm ${mode === 'demo' ? 'your demo slot' : 'a call from Nia'} there.`;
       if (waNumber) {
-        const intro = mode === 'demo' ? 'Hi, I would like to book a free nuumx AI Employee demo.' : 'Hi, I would like a call from Riya, the nuumx AI Employee.';
+        const intro = mode === 'demo' ? 'Hi, I would like to book a free nuumx AI Employee demo.' : 'Hi, I would like a call from Nia, the nuumx AI Employee.';
         addButton('btn-wa', 'Continue on WhatsApp', waLink(`${intro}\n\nName: ${lead.name}\nPhone: ${lead.phone}${lead.company ? `\nCompany: ${lead.company}` : ''}`));
         const p = document.createElement('p'); p.className = 'fine';
         p.innerHTML = `Or message us directly: <span class="num">${prettyNumber()}</span>`;

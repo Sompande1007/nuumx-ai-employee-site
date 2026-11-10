@@ -2,8 +2,8 @@
  * "It frees them": the calendar defrag. Plays once when the board scrolls into view.
  *
  * A soft mist band sweeps across the visible days. Each busywork block it reaches lights up, lifts out and flies into
- * Riya's panel, landing on its task row, which glows and counts up (as does the weekly total). Blocks in days hidden on
- * phones still count. Then .is-free swaps the week to "The same week, with Riya", the white blocks of selling time grow
+ * Nia's panel, landing on its task row, which glows and counts up (as does the weekly total). Blocks in days hidden on
+ * phones still count. Then .is-free swaps the week to "The same week, with Nia", the white blocks of selling time grow
  * in, "It frees them." whitens and the summary appears. Reduced motion: the final state straight away.
  */
 import { gsap, prefersReducedMotion } from './motion/scroll';

@@ -1,5 +1,5 @@
 /**
- * What it replaces: the comparison rows rise in once as the table scrolls into view; each With Riya cell lands a
+ * What it replaces: the comparison rows rise in once as the table scrolls into view; each With Nia cell lands a
  * beat after its Today cell. Reduced motion: shown at rest.
  */
 import { gsap, prefersReducedMotion } from './motion/scroll';

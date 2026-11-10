@@ -2,7 +2,7 @@
  * Site-wide settings. Edit here, not in the components.
  *
  * leads.formEndpoint   URL that stores leads (Google Apps Script, CRM webhook, n8n, Zapier...).
- * leads.callMeEndpoint URL that makes Riya call the visitor (your voice platform's outbound-call hook).
+ * leads.callMeEndpoint URL that makes Nia call the visitor (your voice platform's outbound-call hook).
  * While an endpoint is empty, that form hands the lead off to WhatsApp instead,
  * so no visitor is ever told something happened when it did not.
  */

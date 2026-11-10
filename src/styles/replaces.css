@@ -1,5 +1,5 @@
 /* What it replaces: a spec comparison table. Every class is prefixed wr-.
-   The With Riya column sits on one frosted strip, drawn by .wr-spec::before behind the third column
+   The With Nia column sits on one frosted strip, drawn by .wr-spec::before behind the third column
    (columns are 26% / 37% / 37% wide, so the strip starts at 63%). */
 
 .wr{position:relative;background:var(--bg);scroll-margin-top:72px}

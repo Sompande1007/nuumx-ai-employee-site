@@ -1,17 +1,17 @@
 // "It doesn't replace your team. It frees them." (its own section, right after What it replaces).
-// A calendar defrag: one salesperson's week, packed with busywork, is cleared into Riya and refills with selling time.
+// A calendar defrag: one salesperson's week, packed with busywork, is cleared into Nia and refills with selling time.
 // The week is illustrative (labelled as such on the page), not client data.
 
 export const FREES = {
   title: 'It doesn’t replace your team.',
   titleSoft: 'It frees them.',
   weekBefore: ['One salesperson’s week', 'Packed with busywork'],
-  weekAfter: ['The same week, with Riya', 'Selling time'],
-  riyaTitle: 'Riya · 24×7',
+  weekAfter: ['The same week, with Nia', 'Selling time'],
+  riyaTitle: 'Nia · 24×7',
   riyaSub: 'Takes the busywork off the calendar',
-  totalLabel: 'Handled by Riya this week',
+  totalLabel: 'Handled by Nia this week',
   note: 'Illustrative week.',
-  summaryRiya: 'Riya does',
+  summaryRiya: 'Nia does',
   summaryRiyaText: 'the calling back, qualifying, following up, booking and reminding, and keeps the CRM up to date.',
   summaryTeam: 'Your team keeps',
   summaryTeamText: 'the consulting, the relationships, the negotiation and the close.',

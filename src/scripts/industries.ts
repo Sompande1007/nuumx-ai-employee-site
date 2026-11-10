@@ -1,7 +1,7 @@
 /**
  * Industries: the sentence plays like one looping film.
  *
- * One GSAP timeline runs the whole loop. At each beat Riya "deletes" the current phrase in the first tile and types the
+ * One GSAP timeline runs the whole loop. At each beat Nia "deletes" the current phrase in the first tile and types the
  * next at a slightly uneven, human rhythm with a blinking mist cursor; the second tile follows partway through. The
  * loop pauses with the small corner button and while the section is off screen.
  * The sentence shrinks just enough that the longest phrase always fits its line. Reduced motion: one still frame,
@@ -91,7 +91,7 @@ export function startIndustries() {
       a.set(last.enquiry); b.set(last.outcome);
       return;
     }
-    // The tiles start empty and Riya types the first phrase the moment the section comes into view; each beat
+    // The tiles start empty and Nia types the first phrase the moment the section comes into view; each beat
     // then holds for BEAT seconds before she deletes it and types the next.
     a.set(''); b.set('');
     const per = BEAT + TYPE_EXTRA;
